@@ -46,11 +46,13 @@ export function fetchSearchDemo(searchText, pfSource, cord19Source) {
 export function getSidebarItems(results, sidebarItem) {
   const ret = new Set();
   results.forEach((result) => {
-    result[sidebarItem].filter(item => {
-      return item && item !== '';
-    }).forEach((item) => {
-      ret.add(item);
-    });
+    if (result[sidebarItem]) {
+      result[sidebarItem].filter(item => {
+        return item && item !== '';
+      }).forEach((item) => {
+        ret.add(item);
+      });
+    }
   });
   return [...ret].sort();
 }
