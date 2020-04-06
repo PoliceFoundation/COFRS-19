@@ -14,7 +14,7 @@ export function fetchSearchRemote(searchText, pfSource, cord19Source) {
     "query": searchText,
     "sources": sources
   };
-  return fetch("/api/contentQuery", {
+  return fetch("api/contentQuery", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
