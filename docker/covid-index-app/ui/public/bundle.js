@@ -446,11 +446,13 @@
         keys.forEach(k => {
           if (filters[k] && filters[k].length > 0) {
             let recordCheck = false;
-            record[k].forEach(element => {
-              if (filters[k].includes(element)) {
-                recordCheck = true;
-              }
-            });
+            if (record[k]) {
+              record[k].forEach(element => {
+                if (filters[k].includes(element)) {
+                  recordCheck = true;
+                }
+              });
+            }
             ret &= recordCheck;
           }
         });
