@@ -1,0 +1,21 @@
+version: '3.5'
+
+networks:
+  covid-index:
+    name: covid-index
+
+services:
+  solr:
+    image: covid-index-solr
+    container_name: solr
+    networks:
+      - covid-index
+    ports:
+      - "8983:8983"
+    volumes:
+      - /opt/data/PoliceFoundation/covid-index:/var/solr
+    command:
+      - solr-precreate
+      - covid
+      - /opt/solr/server/solr/configsets/nutch/conf/
+      

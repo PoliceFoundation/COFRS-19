@@ -1,0 +1,35 @@
+/*
+
+  Tailwind "driver" stylesheet. If you change this file, you have to rebuild tailwind-gen.css by running npm run build:tailwind.
+
+*/
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.app-height {
+  height: calc(100% - 74px);
+}
+
+.h-80 {
+  height: 21rem;
+}
+
+.h-100 {
+  height: 22rem;
+}
+
+.w-72 {
+  width: 18rem;
+}
+
+.text-xxs {
+  font-size: .6rem;
+}
+
+.max-h-half {
+  max-height: 50vh;
+}

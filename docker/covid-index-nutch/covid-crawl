@@ -1,0 +1,10 @@
+python3 /write-seeds.py
+rm -rf /tmp/crawl
+cd /tmp
+nutch inject crawl/crawldb seeds.txt
+nutch generate crawl/crawldb crawl/segments
+s1=`ls -d crawl/segments/2* | tail -1`
+nutch fetch $s1
+nutch parse $s1
+nutch updatedb crawl/crawldb $s1
+nutch index crawl/crawldb/ $s1 -filter -normalize -deleteGone
