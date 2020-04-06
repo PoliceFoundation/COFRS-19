@@ -35,8 +35,8 @@
   <div class="text-gray-600 text-sm"><span class="font-semibold">Source:</span> {formatSource(record.source)}</div>
   <div class="text-gray-600 text-sm"><span class="font-semibold">Date:</span> {formatValue(record.date)}</div>
   <div class="text-gray-600 text-sm"><span class="font-semibold">Owner:</span> {formatValue(record.owner)}</div>
-  <div class="text-gray-600 text-sm"><span class="font-semibold">Tags:</span> {record.tags.filter((v) => v !== '').join(", ")}</div>
-  <div class="text-gray-600 text-sm"><span class="font-semibold">Purpose(s):</span> {record.purpose.filter((v) => v !== '').join(", ")}</div>
+  <div class="text-gray-600 text-sm"><span class="font-semibold">Tags:</span> {record.tags ? record.tags.filter((v) => v !== '').join(", ") : "None"}</div>
+  <div class="text-gray-600 text-sm"><span class="font-semibold">Purpose(s):</span> {record.purpose ? record.purpose.filter((v) => v !== '').join(", ") : "None"}</div>
   <div class="mt-2">{formatValue(record.description)}</div>
 </div>
 {/if}

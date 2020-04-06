@@ -429,11 +429,13 @@
     function getSidebarItems(results, sidebarItem) {
       const ret = new Set();
       results.forEach((result) => {
-        result[sidebarItem].filter(item => {
-          return item && item !== '';
-        }).forEach((item) => {
-          ret.add(item);
-        });
+        if (result[sidebarItem]) {
+          result[sidebarItem].filter(item => {
+            return item && item !== '';
+          }).forEach((item) => {
+            ret.add(item);
+          });
+        }
       });
       return [...ret].sort();
     }
@@ -486,13 +488,21 @@
     	let div4;
     	let span3;
     	let t15;
-    	let t16_value = /*record*/ ctx[0].tags.filter(func).join(", ") + "";
+
+    	let t16_value = (/*record*/ ctx[0].tags
+    	? /*record*/ ctx[0].tags.filter(func).join(", ")
+    	: "None") + "";
+
     	let t16;
     	let t17;
     	let div5;
     	let span4;
     	let t19;
-    	let t20_value = /*record*/ ctx[0].purpose.filter(func_1).join(", ") + "";
+
+    	let t20_value = (/*record*/ ctx[0].purpose
+    	? /*record*/ ctx[0].purpose.filter(func_1).join(", ")
+    	: "None") + "";
+
     	let t20;
     	let t21;
     	let div6;
@@ -598,8 +608,15 @@
     			if (dirty & /*record*/ 1 && t4_value !== (t4_value = formatSource(/*record*/ ctx[0].source) + "")) set_data(t4, t4_value);
     			if (dirty & /*record*/ 1 && t8_value !== (t8_value = formatValue(/*record*/ ctx[0].date) + "")) set_data(t8, t8_value);
     			if (dirty & /*record*/ 1 && t12_value !== (t12_value = formatValue(/*record*/ ctx[0].owner) + "")) set_data(t12, t12_value);
-    			if (dirty & /*record*/ 1 && t16_value !== (t16_value = /*record*/ ctx[0].tags.filter(func).join(", ") + "")) set_data(t16, t16_value);
-    			if (dirty & /*record*/ 1 && t20_value !== (t20_value = /*record*/ ctx[0].purpose.filter(func_1).join(", ") + "")) set_data(t20, t20_value);
+
+    			if (dirty & /*record*/ 1 && t16_value !== (t16_value = (/*record*/ ctx[0].tags
+    			? /*record*/ ctx[0].tags.filter(func).join(", ")
+    			: "None") + "")) set_data(t16, t16_value);
+
+    			if (dirty & /*record*/ 1 && t20_value !== (t20_value = (/*record*/ ctx[0].purpose
+    			? /*record*/ ctx[0].purpose.filter(func_1).join(", ")
+    			: "None") + "")) set_data(t20, t20_value);
+
     			if (dirty & /*record*/ 1 && t22_value !== (t22_value = formatValue(/*record*/ ctx[0].description) + "")) set_data(t22, t22_value);
     		},
     		d(detaching) {
