@@ -100,7 +100,7 @@
           <packagingExcludes>WEB-INF/lib/xalan-2.6.0.jar</packagingExcludes>
           <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
           <failOnMissingWebXml>false</failOnMissingWebXml>
-          <warName>dashboard</warName>
+          <warName>covid-index-app</warName>
         </configuration>
       </plugin>
 
