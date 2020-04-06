@@ -1,8 +1,14 @@
-version: '3.5'
+version: '3.7'
 
 networks:
   covid-index:
     name: covid-index
+
+volumes:
+  apache-certs:
+    name: covid_apache-certs
+  apache-webroot:
+    name: covid_apache-webroot
 
 services:
   solr:
@@ -18,4 +24,26 @@ services:
       - solr-precreate
       - covid
       - /opt/solr/server/solr/configsets/nutch/conf/
-      
+  app:
+    image: covid-index-tomcat
+    container_name: covid-index-tomcat
+    networks:
+      - "covid-index"
+    ports:
+      - "8080:8080"
+  apache-proxy:
+    image: covid-index-apache-proxy
+    container_name: covid-index-apache-proxy
+    networks:
+      - "covid-index"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - type: volume
+        source: apache-certs
+        target: "/apache-certs"
+      - type: volume
+        source: apache-webroot
+        target: "/usr/local/apache2/htdocs"
+    

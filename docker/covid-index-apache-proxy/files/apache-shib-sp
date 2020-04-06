@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# copy these to DocumentRoot at container startup, because the directory has to be a shared mount with certbot
+cp /tmp/index.html /usr/local/apache2/htdocs/
+cp /tmp/landing.css /usr/local/apache2/htdocs/
+
+/etc/init.d/shibd start
+/usr/local/bin/httpd-foreground 
+
+#tail -f /var/log/shibboleth/shibd.log
