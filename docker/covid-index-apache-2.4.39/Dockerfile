@@ -23,7 +23,7 @@ RUN set -eux; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-ENV HTTPD_VERSION 2.4.39
+ENV HTTPD_VERSION 2.4.43
 ENV HTTPD_SHA256 b4ca9d05773aa59b54d66cd8f4744b945289f084d3be17d7981d1783a5decfa2
 
 # https://httpd.apache.org/security/vulnerabilities_24.html
@@ -72,7 +72,7 @@ RUN set -eux; \
 			https://www.apache.org/dist/ \
 			https://archive.apache.org/dist/ \
 		; do \
-			if wget -O "$f" https://www.apache.org/dist/httpd/httpd-2.4.39.tar.gz && [ -s "$f" ]; then \
+			if wget -O "$f" https://www.apache.org/dist/httpd/httpd-2.4.43.tar.gz && [ -s "$f" ]; then \
 				success=1; \
 				break; \
 			fi; \
