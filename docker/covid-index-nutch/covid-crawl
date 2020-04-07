@@ -8,3 +8,5 @@ nutch fetch $s1
 nutch parse $s1
 nutch updatedb crawl/crawldb $s1
 nutch index crawl/crawldb/ $s1 -filter -normalize -deleteGone
+python3 /update-metadata.py
+
