@@ -25,6 +25,13 @@
   let filters = {};
   let filteredRecordCount = 0;
 
+  window.onpopstate = (event) => {
+    if (event.state === "home") {
+      resultsMode = false;
+      results = null;
+    }
+  };
+
   let modalEscapeListener = (e) => {
     if (e.key==="Escape") {
       hideModal();
@@ -33,19 +40,19 @@
 
   function search() {
     if (searchText) {
-      console.log("search, searchText=" + searchText + ", pfSource=" + pfSource + ", cord19Source=" + cord19Source);
       resultsMode = true;
+      history.pushState("home", "");
       fetchSearch(searchText, pfSource, cord19Source).then((resolve, reject) => {
         results = resolve;
-      })
+        history.pushState(results, "");
+      });
     }
   }
 
-  // during dev
-  // onMount(() => {
-  //   searchText = "foo";
-  //   search();
-  // });
+  onMount(() => {
+    results = history.state === "home" ? null : history.state;
+    resultsMode = results !== null;
+  });
 
   function searchKeyup(e) {
     if (e.key==="Enter") {
