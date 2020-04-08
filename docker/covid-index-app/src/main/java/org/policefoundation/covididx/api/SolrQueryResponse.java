@@ -22,7 +22,7 @@ public class SolrQueryResponse {
 		public String[] type;
 		public String covid_owner;
 		public String covid_description;
-		public String[] covid_purpose;
+		public String covid_purpose;
 		public String[] covid_tags;
 		public String date;
 	}

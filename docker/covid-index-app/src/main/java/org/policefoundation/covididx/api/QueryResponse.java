@@ -10,7 +10,7 @@ public class QueryResponse {
 	public String url;
 	public String[] tags;
 	public String owner;
-	public String[] purpose;
+	public String purpose;
 	public String type;
 	public String description;
 	public String title;
@@ -47,7 +47,7 @@ public class QueryResponse {
 			}
 		}
 		ret.owner = String.join(", ", authors);
-		ret.purpose = new String[] { "CORD-19 Research" };
+		ret.purpose = "CORD-19 Research";
 		ret.type = "text/html";
 		String cleanedTitle = responseChild.fields.title;
 		cleanedTitle = cleanedTitle.replace("<hi>", "").replace("</hi>", "");
