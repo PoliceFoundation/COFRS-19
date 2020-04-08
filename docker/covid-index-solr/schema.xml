@@ -382,7 +382,7 @@
     <!-- our custom covid fields -->
     <field name="covid_owner" type="string" stored="true" indexed="true"/>
     <field name="covid_description" type="string" stored="true" indexed="true"/>
-    <field name="covid_purpose" type="string" stored="true" indexed="true" multiValued="true"/>
+    <field name="covid_purpose" type="string" stored="true" indexed="true"/>
     <field name="covid_tags" type="string" stored="true" indexed="true" multiValued="true"/>
 
  </fields>
