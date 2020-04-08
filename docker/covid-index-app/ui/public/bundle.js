@@ -439,11 +439,15 @@
       const ret = new Set();
       results.forEach((result) => {
         if (result[sidebarItem]) {
-          result[sidebarItem].filter(item => {
-            return item && item !== '';
-          }).forEach((item) => {
-            ret.add(item);
-          });
+          if (typeof result[sidebarItem] === 'string' || result[sidebarItem] instanceof String) {
+            ret.add(result[sidebarItem]);
+          } else {
+            result[sidebarItem].filter(item => {
+              return item && item !== '';
+            }).forEach((item) => {
+              ret.add(item);
+            });
+          }
         }
       });
       return [...ret].sort();
@@ -456,11 +460,17 @@
         if (filters[k] && filters[k].length > 0) {
           let recordCheck = false;
           if (record[k]) {
-            record[k].forEach(element => {
-              if (filters[k].includes(element)) {
+            if (typeof record[k] === 'string' || record[k] instanceof String) {
+              if (filters[k].includes(record[k])) {
                 recordCheck = true;
               }
-            });
+            } else {
+              record[k].forEach(element => {
+                if (filters[k].includes(element)) {
+                  recordCheck = true;
+                }
+              });
+            }
           }
           ret &= recordCheck;
         }
@@ -513,11 +523,7 @@
     	let div5;
     	let span4;
     	let t19;
-
-    	let t20_value = (/*record*/ ctx[0].purpose
-    	? /*record*/ ctx[0].purpose.filter(func_1).join(", ")
-    	: "None") + "";
-
+    	let t20_value = formatValue(/*record*/ ctx[0].purpose) + "";
     	let t20;
     	let t21;
     	let div6;
@@ -557,7 +563,7 @@
     			t17 = space();
     			div5 = element("div");
     			span4 = element("span");
-    			span4.textContent = "Purpose(s):";
+    			span4.textContent = "Purpose:";
     			t19 = space();
     			t20 = text(t20_value);
     			t21 = space();
@@ -630,10 +636,7 @@
     			? /*record*/ ctx[0].tags.filter(func).join(", ")
     			: "None") + "")) set_data(t16, t16_value);
 
-    			if (dirty & /*record*/ 1 && t20_value !== (t20_value = (/*record*/ ctx[0].purpose
-    			? /*record*/ ctx[0].purpose.filter(func_1).join(", ")
-    			: "None") + "")) set_data(t20, t20_value);
-
+    			if (dirty & /*record*/ 1 && t20_value !== (t20_value = formatValue(/*record*/ ctx[0].purpose) + "")) set_data(t20, t20_value);
     			if (dirty & /*record*/ 1 && t22_value !== (t22_value = formatValue(/*record*/ ctx[0].description) + "")) set_data(t22, t22_value);
     		},
     		d(detaching) {
@@ -697,7 +700,6 @@
     }
 
     const func = v => v !== "";
-    const func_1 = v => v !== "";
 
     function instance$1($$self, $$props, $$invalidate) {
     	let { record } = $$props;

@@ -48,11 +48,15 @@ export function getSidebarItems(results, sidebarItem) {
   const ret = new Set();
   results.forEach((result) => {
     if (result[sidebarItem]) {
-      result[sidebarItem].filter(item => {
-        return item && item !== '';
-      }).forEach((item) => {
-        ret.add(item);
-      });
+      if (typeof result[sidebarItem] === 'string' || result[sidebarItem] instanceof String) {
+        ret.add(result[sidebarItem]);
+      } else {
+        result[sidebarItem].filter(item => {
+          return item && item !== '';
+        }).forEach((item) => {
+          ret.add(item);
+        });
+      }
     }
   });
   return [...ret].sort();
@@ -65,11 +69,17 @@ export function filterRecord(record, filters) {
     if (filters[k] && filters[k].length > 0) {
       let recordCheck = false;
       if (record[k]) {
-        record[k].forEach(element => {
-          if (filters[k].includes(element)) {
+        if (typeof record[k] === 'string' || record[k] instanceof String) {
+          if (filters[k].includes(record[k])) {
             recordCheck = true;
           }
-        });
+        } else {
+          record[k].forEach(element => {
+            if (filters[k].includes(element)) {
+              recordCheck = true;
+            }
+          });
+        }
       }
       ret &= recordCheck;
     }
