@@ -25,7 +25,7 @@ public class QueryResponse {
 		ret.type = solrResponse.type != null && solrResponse.type.length > 0 ? solrResponse.type[0] : null;
 		ret.description = solrResponse.covid_description;
 		ret.title = solrResponse.title;
-		ret.date = solrResponse.date.substring(0, 10);
+		ret.date = solrResponse.date != null ? solrResponse.date.substring(0, 10) : null;
 		ret.source = QueryRequest.SOURCE_PF;
 		return ret;
 	}

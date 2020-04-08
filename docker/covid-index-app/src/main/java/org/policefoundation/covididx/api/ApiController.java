@@ -63,7 +63,13 @@ public class ApiController {
 	}
 
 	private QueryResponse[] solrContentQuery(QueryRequest queryRequest) {
-		String url = solrApiUrl + "select?q=content:" + queryRequest.query;
+		String q = queryRequest.query;
+		q = "\"" + q.replace('"', ' ').trim() + "\"";
+		q = "content:" + q + " OR title:" + q;
+		for (String word : queryRequest.query.split(" ")) {
+			q = q + " OR covid_tags:" + word;
+		}
+		String url = solrApiUrl + "select?q=" + q;
 		log.info("Querying Solr url " + url);
 		RestTemplate restTemplate = new RestTemplate();
 		SolrQueryResponse solrResponse = restTemplate.getForObject(url, SolrQueryResponse.class);

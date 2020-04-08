@@ -25,10 +25,15 @@
   let filters = {};
   let filteredRecordCount = 0;
 
+  function init() {
+    resultsMode = false;
+    results = null;
+    filters = {};
+  }
+
   window.onpopstate = (event) => {
     if (event.state === "home") {
-      resultsMode = false;
-      results = null;
+      init();
     }
   };
 
@@ -50,7 +55,7 @@
   }
 
   onMount(() => {
-    results = history.state === "home" ? null : history.state;
+    results = !history.state || history.state === "home" || history.state.status ? null : history.state;
     resultsMode = results !== null;
   });
 
@@ -92,8 +97,8 @@
   }
 
   function returnToSearch() {
-    results = undefined;
-    resultsMode = false;
+    init();
+    history.replaceState("home", "");
   }
 
   function getFilteredRecordCount(filters) {

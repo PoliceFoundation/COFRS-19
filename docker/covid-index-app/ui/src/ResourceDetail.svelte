@@ -31,7 +31,7 @@
 
 {#if visible}
 <div class="w-full flex flex-col mt-4">
-  <div class="font-semibold"><a class="border-b border-dotted" href="{record.url}">{formatValue(record.title)}</a></div>
+  <div class="font-semibold"><a class="border-b border-dotted" href="{record.url}">{!record.title || record.title==="" || record.title==="NaN" ? record.url : record.title}</a></div>
   <div class="text-gray-600 text-sm"><span class="font-semibold">Source:</span> {formatSource(record.source)}</div>
   <div class="text-gray-600 text-sm"><span class="font-semibold">Date:</span> {formatValue(record.date)}</div>
   <div class="text-gray-600 text-sm"><span class="font-semibold">Owner:</span> {formatValue(record.owner)}</div>
