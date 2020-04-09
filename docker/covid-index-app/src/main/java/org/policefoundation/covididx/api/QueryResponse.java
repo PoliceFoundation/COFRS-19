@@ -32,7 +32,7 @@ public class QueryResponse {
 	public static final QueryResponse fromCord19Response(Cord19QueryResponse.ResponseChild responseChild) {
 		QueryResponse ret = new QueryResponse();
 		ret.url = responseChild.fields.doi;
-		ret.tags = new String[] { "CORD-19" };
+		ret.tags = new String[] { "Research & Data" };
 		List<String> authors = new ArrayList<String>();
 		Author[] authorsArray = responseChild.fields.authors;
 		if (authorsArray != null) {
@@ -47,7 +47,7 @@ public class QueryResponse {
 			}
 		}
 		ret.owner = String.join(", ", authors);
-		ret.purpose = "CORD-19 Research";
+		ret.purpose = "Research Resource";
 		ret.type = "text/html";
 		String cleanedTitle = responseChild.fields.title;
 		cleanedTitle = cleanedTitle.replace("<hi>", "").replace("</hi>", "");
