@@ -49,6 +49,15 @@ public class ApiController {
 		return responses.stream().toArray(QueryResponse[]::new);
 		
 	}
+	
+	@RequestMapping(value="/api/feedback", method=RequestMethod.PUT)
+	public String feedback(@RequestBody FeedbackRequest feedbackRequest) throws Exception {
+		SlackWebhookRequest slackRequest = new SlackWebhookRequest();
+		slackRequest.text = feedbackRequest.feedbackContent;
+		log.info("Feedback text: " + slackRequest.text);
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate.postForObject("https://hooks.slack.com/services/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", slackRequest, String.class);
+	}
 
 	private QueryResponse[] cord19ContentQuery(QueryRequest queryRequest) {
 		Cord19QueryRequest request = new Cord19QueryRequest();

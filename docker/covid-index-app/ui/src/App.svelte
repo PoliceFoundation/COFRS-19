@@ -19,11 +19,14 @@
   let aboutHover = false;
   let contactUsModal = false;
   let aboutModal = false;
+  let addResourcesHover = false;
+  let addResourcesModal = false;
   let searchText, pfSource=true, cord19Source=true;
   let resultsMode = false;
   let results;
   let filters = {};
   let filteredRecordCount = 0;
+  let feedbackContent;
 
   function init() {
     resultsMode = false;
@@ -72,6 +75,7 @@
   function hideModal() {
     aboutModal = false;
     contactUsModal = false;
+    addResourcesModal = false;
     document.removeEventListener('keyup', modalEscapeListener);
   }
 
@@ -82,6 +86,12 @@
 
   function showContactUsModal() {
     contactUsModal = true;
+    showModal();
+  }
+
+  function showAddResourcesModal() {
+    addResourcesModal = true;
+    feedbackContent = null;
     showModal();
   }
 
@@ -116,6 +126,23 @@
 
   $: filteredRecordCount = getFilteredRecordCount(filters);
 
+  function postFeedback() {
+    if (feedbackContent) {
+      const request = {
+        feedbackContent: feedbackContent
+      };
+      fetch("api/feedback", {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      }).then(() => {
+        hideModal();
+      });
+    }
+  }
+
 </script>
 
 <style>
@@ -141,6 +168,9 @@
   .nav-bottom-color {
     border-color: rgba(255,255,255,0.2)
   }
+  .ta-no-resize {
+    resize: none
+  }
 </style>
 
 <div class="h-full body-background pb-8 body-font relative">
@@ -151,10 +181,14 @@
         on:click="{showAboutModal}"
         on:mouseover="{() => aboutHover = true}"
         on:mouseout="{() => aboutHover = false}">About</div>
-      <div class="cursor-pointer {contactUsHover ? 'cofrs-color' : ''}"
+      <div class="cursor-pointer {contactUsHover ? 'cofrs-color' : ''} mr-4"
         on:click="{showContactUsModal}"
         on:mouseover="{() => contactUsHover = true}"
         on:mouseout="{() => contactUsHover = false}">Contact Us</div>
+      <div class="cursor-pointer {addResourcesHover ? 'cofrs-color' : ''}"
+        on:click="{showAddResourcesModal}"
+        on:mouseover="{() => addResourcesHover = true}"
+        on:mouseout="{() => addResourcesHover = false}">Add Your Resources</div>
     </div>
   </div>
   {#if !resultsMode}
@@ -218,7 +252,30 @@
     <div class="text-black w-full text-center bg-gray-400 py-4"><a href="http://www.policefoundation.org/copyright-information/">© 2020 National Police Foundation</a></div>
   </div>
   {/if}
-  <div class="absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col {contactUsModal|aboutModal ? 'visible' : 'invisible'}"></div>
+  <div class="absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col {contactUsModal|aboutModal|addResourcesModal ? 'visible' : 'invisible'}"></div>
+  <div class="absolute top-0 left-0 h-full w-full items-center flex flex-col {addResourcesModal ? 'visible' : 'invisible'}">
+    <div class="mt-48 border-2 border-gray-600 w-1/2 h-100 p-4 align-middle bg-gray-100">
+      <div class="w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2">
+        <div class="text-xl font-semibold">Add Your Resources</div>
+        <div on:click="{hideModal}"><Icon icon={closeModalIcon} class="fill-current text-gray-800 text-2xl align-middle cursor-pointer"></Icon></div>
+      </div>
+      <div class="app-height-about">
+        <div class="mt-8 flex flex-col">
+          <div class="mb-2">
+              We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.) please provide
+              the address (from your browser's address bar), a title, and (optionally) your contact information so we can reach you with any questions:
+          </div>
+          <div class="mb-4 flex flex-col items-center justify-center">
+            <textarea class="h-40 w-full mb-2 border border-gray-800 p-1 ta-no-resize" bind:value={feedbackContent}></textarea>
+            <div class="border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none {feedbackContent ? 'hover:bg-gray-500' : ''}" on:click="{postFeedback}">Submit</div>
+          </div>
+          <div class="mb-1">
+              Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org">info@policefoundation.org</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="absolute top-0 left-0 h-full w-full items-center flex flex-col {contactUsModal ? 'visible' : 'invisible'}">
     <div class="mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100">
       <div class="w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2">

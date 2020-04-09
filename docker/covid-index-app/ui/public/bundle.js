@@ -913,30 +913,30 @@
 
     function add_css$1() {
     	var style = element("style");
-    	style.id = "svelte-5j2okh-style";
-    	style.textContent = ".body-font.svelte-5j2okh{font-family:\"Lato\",\"Helvetica Neue\",\"Arial\",\"Helvetica\",-apple-system,sans-serif;-webkit-font-smoothing:antialiased}.body-background.svelte-5j2okh{background-image:linear-gradient(0deg, rgb(152,193,219) 7%, rgb(0, 90, 142) 100%)\n  }.app-height-query.svelte-5j2okh{height:calc(100% - 400px)}.app-height-results.svelte-5j2okh{height:calc(100% - 100px)}.app-height-about.svelte-5j2okh{height:calc(100% - 80px)}.cofrs-color.svelte-5j2okh{color:rgb(255, 196, 60)}.nav-bottom-color.svelte-5j2okh{border-color:rgba(255,255,255,0.2)\n  }";
+    	style.id = "svelte-eekrjz-style";
+    	style.textContent = ".body-font.svelte-eekrjz{font-family:\"Lato\",\"Helvetica Neue\",\"Arial\",\"Helvetica\",-apple-system,sans-serif;-webkit-font-smoothing:antialiased}.body-background.svelte-eekrjz{background-image:linear-gradient(0deg, rgb(152,193,219) 7%, rgb(0, 90, 142) 100%)\n  }.app-height-query.svelte-eekrjz{height:calc(100% - 400px)}.app-height-results.svelte-eekrjz{height:calc(100% - 100px)}.app-height-about.svelte-eekrjz{height:calc(100% - 80px)}.cofrs-color.svelte-eekrjz{color:rgb(255, 196, 60)}.nav-bottom-color.svelte-eekrjz{border-color:rgba(255,255,255,0.2)\n  }.ta-no-resize.svelte-eekrjz{resize:none\n  }";
     	append(document_1.head, style);
     }
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[35] = list[i];
+    	child_ctx[43] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[38] = list[i];
+    	child_ctx[46] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[41] = list[i];
+    	child_ctx[49] = list[i];
     	return child_ctx;
     }
 
-    // (185:2) {:else}
+    // (219:2) {:else}
     function create_else_block(ctx) {
     	let div4;
     	let div2;
@@ -946,8 +946,8 @@
     	let t1;
     	let div3;
     	let current;
-    	let if_block0 = /*results*/ ctx[8] && create_if_block_2(ctx);
-    	let if_block1 = /*results*/ ctx[8] && create_if_block_1(ctx);
+    	let if_block0 = /*results*/ ctx[10] && create_if_block_2(ctx);
+    	let if_block1 = /*results*/ ctx[10] && create_if_block_1(ctx);
 
     	return {
     		c() {
@@ -965,7 +965,7 @@
     			attr(div1, "class", "h-full w-full flex flex-col ml-4");
     			attr(div2, "class", "h-full w-full flex flex-row bg-gray-100 p-4");
     			attr(div3, "class", "text-black w-full text-center bg-gray-400 py-4");
-    			attr(div4, "class", "app-height-results svelte-5j2okh");
+    			attr(div4, "class", "app-height-results svelte-eekrjz");
     		},
     		m(target, anchor) {
     			insert(target, div4, anchor);
@@ -980,7 +980,7 @@
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (/*results*/ ctx[8]) {
+    			if (/*results*/ ctx[10]) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -993,7 +993,7 @@
     				if_block0 = null;
     			}
 
-    			if (/*results*/ ctx[8]) {
+    			if (/*results*/ ctx[10]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     					transition_in(if_block1, 1);
@@ -1030,7 +1030,7 @@
     	};
     }
 
-    // (160:2) {#if !resultsMode}
+    // (194:2) {#if !resultsMode}
     function create_if_block$1(ctx) {
     	let div11;
     	let div9;
@@ -1059,7 +1059,7 @@
 
     	const icon = new Icon({
     			props: {
-    				icon: /*searchIcon*/ ctx[11],
+    				icon: /*searchIcon*/ ctx[14],
     				class: "fill-current text-gray-500 text-2xl align-middle mt-4"
     			}
     		});
@@ -1110,7 +1110,7 @@
     			attr(div8, "class", "mt-64 w-full flex flex-col items-center");
     			attr(div9, "class", "h-full w-full items-center");
     			attr(div10, "class", "text-white w-full text-center");
-    			attr(div11, "class", "app-height-query svelte-5j2okh");
+    			attr(div11, "class", "app-height-query svelte-eekrjz");
     		},
     		m(target, anchor, remount) {
     			insert(target, div11, anchor);
@@ -1120,7 +1120,7 @@
     			append(div8, t1);
     			append(div8, div2);
     			append(div2, input0);
-    			set_input_value(input0, /*searchText*/ ctx[4]);
+    			set_input_value(input0, /*searchText*/ ctx[6]);
     			append(div2, t2);
     			append(div2, div1);
     			mount_component(icon, div1, null);
@@ -1128,13 +1128,13 @@
     			append(div8, div7);
     			append(div7, div4);
     			append(div4, input1);
-    			input1.checked = /*pfSource*/ ctx[5];
+    			input1.checked = /*pfSource*/ ctx[7];
     			append(div4, t4);
     			append(div4, div3);
     			append(div7, t6);
     			append(div7, div6);
     			append(div6, input2);
-    			input2.checked = /*cord19Source*/ ctx[6];
+    			input2.checked = /*cord19Source*/ ctx[8];
     			append(div6, t7);
     			append(div6, div5);
     			append(div11, t10);
@@ -1143,24 +1143,24 @@
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(input0, "input", /*input0_input_handler*/ ctx[30]),
-    				listen(input0, "keyup", /*searchKeyup*/ ctx[16]),
-    				listen(div1, "click", /*search*/ ctx[15]),
-    				listen(input1, "change", /*input1_change_handler*/ ctx[31]),
-    				listen(input2, "change", /*input2_change_handler*/ ctx[32])
+    				listen(input0, "input", /*input0_input_handler*/ ctx[37]),
+    				listen(input0, "keyup", /*searchKeyup*/ ctx[19]),
+    				listen(div1, "click", /*search*/ ctx[18]),
+    				listen(input1, "change", /*input1_change_handler*/ ctx[38]),
+    				listen(input2, "change", /*input2_change_handler*/ ctx[39])
     			];
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*searchText*/ 16 && input0.value !== /*searchText*/ ctx[4]) {
-    				set_input_value(input0, /*searchText*/ ctx[4]);
+    			if (dirty[0] & /*searchText*/ 64 && input0.value !== /*searchText*/ ctx[6]) {
+    				set_input_value(input0, /*searchText*/ ctx[6]);
     			}
 
-    			if (dirty[0] & /*pfSource*/ 32) {
-    				input1.checked = /*pfSource*/ ctx[5];
+    			if (dirty[0] & /*pfSource*/ 128) {
+    				input1.checked = /*pfSource*/ ctx[7];
     			}
 
-    			if (dirty[0] & /*cord19Source*/ 64) {
-    				input2.checked = /*cord19Source*/ ctx[6];
+    			if (dirty[0] & /*cord19Source*/ 256) {
+    				input2.checked = /*cord19Source*/ ctx[8];
     			}
     		},
     		i(local) {
@@ -1180,7 +1180,7 @@
     	};
     }
 
-    // (189:8) {#if results}
+    // (223:8) {#if results}
     function create_if_block_2(ctx) {
     	let div0;
     	let t1;
@@ -1189,14 +1189,14 @@
     	let div1;
     	let t4;
     	let ul1;
-    	let each_value_2 = getSidebarItems(/*results*/ ctx[8], "purpose");
+    	let each_value_2 = getSidebarItems(/*results*/ ctx[10], "purpose");
     	let each_blocks_1 = [];
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value_1 = getSidebarItems(/*results*/ ctx[8], "tags");
+    	let each_value_1 = getSidebarItems(/*results*/ ctx[10], "tags");
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -1246,8 +1246,8 @@
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*results, filter*/ 1048832) {
-    				each_value_2 = getSidebarItems(/*results*/ ctx[8], "purpose");
+    			if (dirty[0] & /*results, filter*/ 16778240) {
+    				each_value_2 = getSidebarItems(/*results*/ ctx[10], "purpose");
     				let i;
 
     				for (i = 0; i < each_value_2.length; i += 1) {
@@ -1269,8 +1269,8 @@
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*results, filter*/ 1048832) {
-    				each_value_1 = getSidebarItems(/*results*/ ctx[8], "tags");
+    			if (dirty[0] & /*results, filter*/ 16778240) {
+    				each_value_1 = getSidebarItems(/*results*/ ctx[10], "tags");
     				let i;
 
     				for (i = 0; i < each_value_1.length; i += 1) {
@@ -1306,12 +1306,12 @@
     	};
     }
 
-    // (192:12) {#each getSidebarItems(results, 'purpose') as purpose}
+    // (226:12) {#each getSidebarItems(results, 'purpose') as purpose}
     function create_each_block_2(ctx) {
     	let li;
     	let input;
     	let input_data_purpose_value;
-    	let t_value = /*purpose*/ ctx[41] + "";
+    	let t_value = /*purpose*/ ctx[49] + "";
     	let t;
     	let dispose;
 
@@ -1322,21 +1322,21 @@
     			t = text(t_value);
     			attr(input, "type", "checkbox");
     			attr(input, "class", "mr-1 purpose-checkbox");
-    			attr(input, "data-purpose", input_data_purpose_value = /*purpose*/ ctx[41]);
+    			attr(input, "data-purpose", input_data_purpose_value = /*purpose*/ ctx[49]);
     		},
     		m(target, anchor, remount) {
     			insert(target, li, anchor);
     			append(li, input);
     			append(li, t);
     			if (remount) dispose();
-    			dispose = listen(input, "click", /*click_handler*/ ctx[33]);
+    			dispose = listen(input, "click", /*click_handler*/ ctx[40]);
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*results*/ 256 && input_data_purpose_value !== (input_data_purpose_value = /*purpose*/ ctx[41])) {
+    			if (dirty[0] & /*results*/ 1024 && input_data_purpose_value !== (input_data_purpose_value = /*purpose*/ ctx[49])) {
     				attr(input, "data-purpose", input_data_purpose_value);
     			}
 
-    			if (dirty[0] & /*results*/ 256 && t_value !== (t_value = /*purpose*/ ctx[41] + "")) set_data(t, t_value);
+    			if (dirty[0] & /*results*/ 1024 && t_value !== (t_value = /*purpose*/ ctx[49] + "")) set_data(t, t_value);
     		},
     		d(detaching) {
     			if (detaching) detach(li);
@@ -1345,12 +1345,12 @@
     	};
     }
 
-    // (198:12) {#each getSidebarItems(results, 'tags') as tag}
+    // (232:12) {#each getSidebarItems(results, 'tags') as tag}
     function create_each_block_1(ctx) {
     	let li;
     	let input;
     	let input_data_tags_value;
-    	let t_value = /*tag*/ ctx[38] + "";
+    	let t_value = /*tag*/ ctx[46] + "";
     	let t;
     	let dispose;
 
@@ -1361,21 +1361,21 @@
     			t = text(t_value);
     			attr(input, "type", "checkbox");
     			attr(input, "class", "mr-1 tags-checkbox");
-    			attr(input, "data-tags", input_data_tags_value = /*tag*/ ctx[38]);
+    			attr(input, "data-tags", input_data_tags_value = /*tag*/ ctx[46]);
     		},
     		m(target, anchor, remount) {
     			insert(target, li, anchor);
     			append(li, input);
     			append(li, t);
     			if (remount) dispose();
-    			dispose = listen(input, "click", /*click_handler_1*/ ctx[34]);
+    			dispose = listen(input, "click", /*click_handler_1*/ ctx[41]);
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*results*/ 256 && input_data_tags_value !== (input_data_tags_value = /*tag*/ ctx[38])) {
+    			if (dirty[0] & /*results*/ 1024 && input_data_tags_value !== (input_data_tags_value = /*tag*/ ctx[46])) {
     				attr(input, "data-tags", input_data_tags_value);
     			}
 
-    			if (dirty[0] & /*results*/ 256 && t_value !== (t_value = /*tag*/ ctx[38] + "")) set_data(t, t_value);
+    			if (dirty[0] & /*results*/ 1024 && t_value !== (t_value = /*tag*/ ctx[46] + "")) set_data(t, t_value);
     		},
     		d(detaching) {
     			if (detaching) detach(li);
@@ -1384,11 +1384,11 @@
     	};
     }
 
-    // (205:8) {#if results}
+    // (239:8) {#if results}
     function create_if_block_1(ctx) {
     	let div2;
     	let div0;
-    	let t0_value = /*results*/ ctx[8].length + "";
+    	let t0_value = /*results*/ ctx[10].length + "";
     	let t0;
     	let t1;
     	let span0;
@@ -1404,7 +1404,7 @@
     	let div3;
     	let current;
     	let dispose;
-    	let each_value = /*results*/ ctx[8];
+    	let each_value = /*results*/ ctx[10];
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -1422,11 +1422,11 @@
     			t0 = text(t0_value);
     			t1 = text(" matches for query ");
     			span0 = element("span");
-    			t2 = text(/*searchText*/ ctx[4]);
+    			t2 = text(/*searchText*/ ctx[6]);
     			t3 = space();
     			span1 = element("span");
     			t4 = text("(");
-    			t5 = text(/*filteredRecordCount*/ ctx[10]);
+    			t5 = text(/*filteredRecordCount*/ ctx[12]);
     			t6 = text(" filtered)");
     			t7 = space();
     			div1 = element("div");
@@ -1467,15 +1467,15 @@
 
     			current = true;
     			if (remount) dispose();
-    			dispose = listen(div1, "click", /*returnToSearch*/ ctx[21]);
+    			dispose = listen(div1, "click", /*returnToSearch*/ ctx[25]);
     		},
     		p(ctx, dirty) {
-    			if ((!current || dirty[0] & /*results*/ 256) && t0_value !== (t0_value = /*results*/ ctx[8].length + "")) set_data(t0, t0_value);
-    			if (!current || dirty[0] & /*searchText*/ 16) set_data(t2, /*searchText*/ ctx[4]);
-    			if (!current || dirty[0] & /*filteredRecordCount*/ 1024) set_data(t5, /*filteredRecordCount*/ ctx[10]);
+    			if ((!current || dirty[0] & /*results*/ 1024) && t0_value !== (t0_value = /*results*/ ctx[10].length + "")) set_data(t0, t0_value);
+    			if (!current || dirty[0] & /*searchText*/ 64) set_data(t2, /*searchText*/ ctx[6]);
+    			if (!current || dirty[0] & /*filteredRecordCount*/ 4096) set_data(t5, /*filteredRecordCount*/ ctx[12]);
 
-    			if (dirty[0] & /*results, filters*/ 768) {
-    				each_value = /*results*/ ctx[8];
+    			if (dirty[0] & /*results, filters*/ 3072) {
+    				each_value = /*results*/ ctx[10];
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
@@ -1529,14 +1529,14 @@
     	};
     }
 
-    // (211:12) {#each results as record}
+    // (245:12) {#each results as record}
     function create_each_block(ctx) {
     	let current;
 
     	const resourcedetail = new ResourceDetail({
     			props: {
-    				record: /*record*/ ctx[35],
-    				filters: /*filters*/ ctx[9]
+    				record: /*record*/ ctx[43],
+    				filters: /*filters*/ ctx[11]
     			}
     		});
 
@@ -1550,8 +1550,8 @@
     		},
     		p(ctx, dirty) {
     			const resourcedetail_changes = {};
-    			if (dirty[0] & /*results*/ 256) resourcedetail_changes.record = /*record*/ ctx[35];
-    			if (dirty[0] & /*filters*/ 512) resourcedetail_changes.filters = /*filters*/ ctx[9];
+    			if (dirty[0] & /*results*/ 1024) resourcedetail_changes.record = /*record*/ ctx[43];
+    			if (dirty[0] & /*filters*/ 2048) resourcedetail_changes.filters = /*filters*/ ctx[11];
     			resourcedetail.$set(resourcedetail_changes);
     		},
     		i(local) {
@@ -1570,11 +1570,11 @@
     }
 
     function create_fragment$2(ctx) {
-    	let div40;
-    	let div4;
+    	let div52;
+    	let div5;
     	let div0;
     	let t3;
-    	let div3;
+    	let div4;
     	let div1;
     	let t4;
     	let div1_class_value;
@@ -1583,45 +1583,70 @@
     	let t6;
     	let div2_class_value;
     	let t7;
+    	let div3;
+    	let t8;
+    	let div3_class_value;
+    	let t9;
     	let current_block_type_index;
     	let if_block;
-    	let t8;
-    	let div5;
-    	let div5_class_value;
-    	let t9;
-    	let div14;
-    	let div13;
-    	let div8;
+    	let t10;
     	let div6;
+    	let div6_class_value;
     	let t11;
-    	let div7;
-    	let t12;
-    	let div12;
-    	let div9;
-    	let t14;
-    	let div10;
-    	let a0;
-    	let t16;
-    	let div11;
-    	let t17;
-    	let div14_class_value;
-    	let t18;
-    	let div39;
-    	let div38;
     	let div17;
-    	let div15;
-    	let t20;
     	let div16;
-    	let t21;
-    	let div37;
-    	let div39_class_value;
+    	let div9;
+    	let div7;
+    	let t13;
+    	let div8;
+    	let t14;
+    	let div15;
+    	let div14;
+    	let div10;
+    	let t16;
+    	let div12;
+    	let textarea;
+    	let t17;
+    	let div11;
+    	let t18;
+    	let div11_class_value;
+    	let t19;
+    	let div13;
+    	let div17_class_value;
+    	let t23;
+    	let div26;
+    	let div25;
+    	let div20;
+    	let div18;
+    	let t25;
+    	let div19;
+    	let t26;
+    	let div24;
+    	let div21;
+    	let t28;
+    	let div22;
+    	let a1;
+    	let t30;
+    	let div23;
+    	let t31;
+    	let div26_class_value;
+    	let t32;
+    	let div51;
+    	let div50;
+    	let div29;
+    	let div27;
+    	let t34;
+    	let div28;
+    	let t35;
+    	let div49;
+    	let div51_class_value;
     	let current;
     	let dispose;
     	const if_block_creators = [create_if_block$1, create_else_block];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
-    		if (!/*resultsMode*/ ctx[7]) return 0;
+    		if (!/*resultsMode*/ ctx[9]) return 0;
     		return 1;
     	}
 
@@ -1630,84 +1655,121 @@
 
     	const icon0 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[12],
+    				icon: /*closeModalIcon*/ ctx[15],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	const icon1 = new Icon({
     			props: {
-    				icon: /*envelopeIcon*/ ctx[14],
-    				class: "fill-current text-gray-800 align-middle mr-2"
+    				icon: /*closeModalIcon*/ ctx[15],
+    				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	const icon2 = new Icon({
     			props: {
-    				icon: /*phoneIcon*/ ctx[13],
+    				icon: /*envelopeIcon*/ ctx[17],
     				class: "fill-current text-gray-800 align-middle mr-2"
     			}
     		});
 
     	const icon3 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[12],
+    				icon: /*phoneIcon*/ ctx[16],
+    				class: "fill-current text-gray-800 align-middle mr-2"
+    			}
+    		});
+
+    	const icon4 = new Icon({
+    			props: {
+    				icon: /*closeModalIcon*/ ctx[15],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	return {
     		c() {
-    			div40 = element("div");
-    			div4 = element("div");
+    			div52 = element("div");
+    			div5 = element("div");
     			div0 = element("div");
-    			div0.innerHTML = `<span class="cofrs-color svelte-5j2okh">COFRS-19</span>  <span class="text-white pl-1">Search</span>`;
+    			div0.innerHTML = `<span class="cofrs-color svelte-eekrjz">COFRS-19</span>  <span class="text-white pl-1">Search</span>`;
     			t3 = space();
-    			div3 = element("div");
+    			div4 = element("div");
     			div1 = element("div");
     			t4 = text("About");
     			t5 = space();
     			div2 = element("div");
     			t6 = text("Contact Us");
     			t7 = space();
-    			if_block.c();
-    			t8 = space();
-    			div5 = element("div");
+    			div3 = element("div");
+    			t8 = text("Add Your Resources");
     			t9 = space();
-    			div14 = element("div");
-    			div13 = element("div");
-    			div8 = element("div");
+    			if_block.c();
+    			t10 = space();
     			div6 = element("div");
-    			div6.textContent = "Contact Us";
     			t11 = space();
-    			div7 = element("div");
-    			create_component(icon0.$$.fragment);
-    			t12 = space();
-    			div12 = element("div");
-    			div9 = element("div");
-    			div9.textContent = "National Police Foundation";
-    			t14 = space();
-    			div10 = element("div");
-    			create_component(icon1.$$.fragment);
-    			a0 = element("a");
-    			a0.textContent = "info@policefoundation.org";
-    			t16 = space();
-    			div11 = element("div");
-    			create_component(icon2.$$.fragment);
-    			t17 = text("202-833-1460");
-    			t18 = space();
-    			div39 = element("div");
-    			div38 = element("div");
     			div17 = element("div");
-    			div15 = element("div");
-    			div15.textContent = "About this Site";
-    			t20 = space();
     			div16 = element("div");
-    			create_component(icon3.$$.fragment);
-    			t21 = space();
-    			div37 = element("div");
+    			div9 = element("div");
+    			div7 = element("div");
+    			div7.textContent = "Add Your Resources";
+    			t13 = space();
+    			div8 = element("div");
+    			create_component(icon0.$$.fragment);
+    			t14 = space();
+    			div15 = element("div");
+    			div14 = element("div");
+    			div10 = element("div");
+    			div10.textContent = "We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.) please provide\n              the address (from your browser's address bar), a title, and (optionally) your contact information so we can reach you with any questions:";
+    			t16 = space();
+    			div12 = element("div");
+    			textarea = element("textarea");
+    			t17 = space();
+    			div11 = element("div");
+    			t18 = text("Submit");
+    			t19 = space();
+    			div13 = element("div");
 
-    			div37.innerHTML = `<div class=" mt-8 flex flex-col"><div class="font-semibold mb-1">Background</div> 
+    			div13.innerHTML = `
+              Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org">info@policefoundation.org</a>.
+          `;
+
+    			t23 = space();
+    			div26 = element("div");
+    			div25 = element("div");
+    			div20 = element("div");
+    			div18 = element("div");
+    			div18.textContent = "Contact Us";
+    			t25 = space();
+    			div19 = element("div");
+    			create_component(icon1.$$.fragment);
+    			t26 = space();
+    			div24 = element("div");
+    			div21 = element("div");
+    			div21.textContent = "National Police Foundation";
+    			t28 = space();
+    			div22 = element("div");
+    			create_component(icon2.$$.fragment);
+    			a1 = element("a");
+    			a1.textContent = "info@policefoundation.org";
+    			t30 = space();
+    			div23 = element("div");
+    			create_component(icon3.$$.fragment);
+    			t31 = text("202-833-1460");
+    			t32 = space();
+    			div51 = element("div");
+    			div50 = element("div");
+    			div29 = element("div");
+    			div27 = element("div");
+    			div27.textContent = "About this Site";
+    			t34 = space();
+    			div28 = element("div");
+    			create_component(icon4.$$.fragment);
+    			t35 = space();
+    			div49 = element("div");
+
+    			div49.innerHTML = `<div class=" mt-8 flex flex-col"><div class="font-semibold mb-1">Background</div> 
           <div class="mb-1">
           COFRS-19, the First Responder Research &amp; Practice Reference Search project was created to support the needs of the first responder community by
           building a search capability that allows a user to access content from any organization, site or reference materials without having to conduct
@@ -1750,97 +1812,143 @@
           limitations under the License.</div></div>`;
 
     			attr(div0, "class", "ml-12 text-2xl font-bold");
-    			attr(div1, "class", div1_class_value = "cursor-pointer " + (/*aboutHover*/ ctx[1] ? "cofrs-color" : "") + " mr-4" + " svelte-5j2okh");
-    			attr(div2, "class", div2_class_value = "cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " svelte-5j2okh");
-    			attr(div3, "class", "mr-12 text-xl text-white font-bold flex flex-row");
-    			attr(div4, "class", "flex items-center justify-between h-20 border-b-4 nav-bottom-color svelte-5j2okh");
+    			attr(div1, "class", div1_class_value = "cursor-pointer " + (/*aboutHover*/ ctx[1] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz");
+    			attr(div2, "class", div2_class_value = "cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz");
+    			attr(div3, "class", div3_class_value = "cursor-pointer " + (/*addResourcesHover*/ ctx[4] ? "cofrs-color" : "") + " svelte-eekrjz");
+    			attr(div4, "class", "mr-12 text-xl text-white font-bold flex flex-row");
+    			attr(div5, "class", "flex items-center justify-between h-20 border-b-4 nav-bottom-color svelte-eekrjz");
 
-    			attr(div5, "class", div5_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[2] | /*aboutModal*/ ctx[3]
+    			attr(div6, "class", div6_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[2] | /*aboutModal*/ ctx[3] | /*addResourcesModal*/ ctx[5]
     			? "visible"
     			: "invisible"));
 
-    			attr(div6, "class", "text-xl font-semibold");
-    			attr(div8, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
-    			attr(div9, "class", "font-semibold mb-1");
-    			attr(a0, "href", "mailto:info@policefoundation.org");
-    			attr(a0, "class", "border-b border-dotted border-gray-800");
-    			attr(div10, "class", "mb-px");
-    			attr(div11, "class", "align-middle items-center");
-    			attr(div12, "class", "mt-8 flex flex-col");
-    			attr(div13, "class", "mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100");
-    			attr(div14, "class", div14_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[2] ? "visible" : "invisible"));
-    			attr(div15, "class", "text-xl font-semibold");
-    			attr(div17, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
-    			attr(div37, "class", "app-height-about overflow-y-auto svelte-5j2okh");
-    			attr(div38, "class", "mt-48 border-2 border-gray-600 w-3/4 h-100 p-4 align-middle bg-gray-100");
-    			attr(div39, "class", div39_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"));
-    			attr(div40, "class", "h-full body-background pb-8 body-font relative svelte-5j2okh");
+    			attr(div7, "class", "text-xl font-semibold");
+    			attr(div9, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div10, "class", "mb-2");
+    			attr(textarea, "class", "h-40 w-full mb-2 border border-gray-800 p-1 ta-no-resize svelte-eekrjz");
+    			attr(div11, "class", div11_class_value = "border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none " + (/*feedbackContent*/ ctx[13] ? "hover:bg-gray-500" : ""));
+    			attr(div12, "class", "mb-4 flex flex-col items-center justify-center");
+    			attr(div13, "class", "mb-1");
+    			attr(div14, "class", "mt-8 flex flex-col");
+    			attr(div15, "class", "app-height-about svelte-eekrjz");
+    			attr(div16, "class", "mt-48 border-2 border-gray-600 w-1/2 h-100 p-4 align-middle bg-gray-100");
+    			attr(div17, "class", div17_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*addResourcesModal*/ ctx[5] ? "visible" : "invisible"));
+    			attr(div18, "class", "text-xl font-semibold");
+    			attr(div20, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div21, "class", "font-semibold mb-1");
+    			attr(a1, "href", "mailto:info@policefoundation.org");
+    			attr(a1, "class", "border-b border-dotted border-gray-800");
+    			attr(div22, "class", "mb-px");
+    			attr(div23, "class", "align-middle items-center");
+    			attr(div24, "class", "mt-8 flex flex-col");
+    			attr(div25, "class", "mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100");
+    			attr(div26, "class", div26_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[2] ? "visible" : "invisible"));
+    			attr(div27, "class", "text-xl font-semibold");
+    			attr(div29, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div49, "class", "app-height-about overflow-y-auto svelte-eekrjz");
+    			attr(div50, "class", "mt-48 border-2 border-gray-600 w-3/4 h-100 p-4 align-middle bg-gray-100");
+    			attr(div51, "class", div51_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"));
+    			attr(div52, "class", "h-full body-background pb-8 body-font relative svelte-eekrjz");
     		},
     		m(target, anchor, remount) {
-    			insert(target, div40, anchor);
-    			append(div40, div4);
-    			append(div4, div0);
-    			append(div4, t3);
-    			append(div4, div3);
-    			append(div3, div1);
+    			insert(target, div52, anchor);
+    			append(div52, div5);
+    			append(div5, div0);
+    			append(div5, t3);
+    			append(div5, div4);
+    			append(div4, div1);
     			append(div1, t4);
-    			append(div3, t5);
-    			append(div3, div2);
+    			append(div4, t5);
+    			append(div4, div2);
     			append(div2, t6);
-    			append(div40, t7);
-    			if_blocks[current_block_type_index].m(div40, null);
-    			append(div40, t8);
-    			append(div40, div5);
-    			append(div40, t9);
-    			append(div40, div14);
-    			append(div14, div13);
-    			append(div13, div8);
-    			append(div8, div6);
-    			append(div8, t11);
-    			append(div8, div7);
-    			mount_component(icon0, div7, null);
-    			append(div13, t12);
-    			append(div13, div12);
-    			append(div12, div9);
-    			append(div12, t14);
-    			append(div12, div10);
-    			mount_component(icon1, div10, null);
-    			append(div10, a0);
-    			append(div12, t16);
-    			append(div12, div11);
-    			mount_component(icon2, div11, null);
-    			append(div11, t17);
-    			append(div40, t18);
-    			append(div40, div39);
-    			append(div39, div38);
-    			append(div38, div17);
-    			append(div17, div15);
-    			append(div17, t20);
+    			append(div4, t7);
+    			append(div4, div3);
+    			append(div3, t8);
+    			append(div52, t9);
+    			if_blocks[current_block_type_index].m(div52, null);
+    			append(div52, t10);
+    			append(div52, div6);
+    			append(div52, t11);
+    			append(div52, div17);
     			append(div17, div16);
-    			mount_component(icon3, div16, null);
-    			append(div38, t21);
-    			append(div38, div37);
+    			append(div16, div9);
+    			append(div9, div7);
+    			append(div9, t13);
+    			append(div9, div8);
+    			mount_component(icon0, div8, null);
+    			append(div16, t14);
+    			append(div16, div15);
+    			append(div15, div14);
+    			append(div14, div10);
+    			append(div14, t16);
+    			append(div14, div12);
+    			append(div12, textarea);
+    			set_input_value(textarea, /*feedbackContent*/ ctx[13]);
+    			append(div12, t17);
+    			append(div12, div11);
+    			append(div11, t18);
+    			append(div14, t19);
+    			append(div14, div13);
+    			append(div52, t23);
+    			append(div52, div26);
+    			append(div26, div25);
+    			append(div25, div20);
+    			append(div20, div18);
+    			append(div20, t25);
+    			append(div20, div19);
+    			mount_component(icon1, div19, null);
+    			append(div25, t26);
+    			append(div25, div24);
+    			append(div24, div21);
+    			append(div24, t28);
+    			append(div24, div22);
+    			mount_component(icon2, div22, null);
+    			append(div22, a1);
+    			append(div24, t30);
+    			append(div24, div23);
+    			mount_component(icon3, div23, null);
+    			append(div23, t31);
+    			append(div52, t32);
+    			append(div52, div51);
+    			append(div51, div50);
+    			append(div50, div29);
+    			append(div29, div27);
+    			append(div29, t34);
+    			append(div29, div28);
+    			mount_component(icon4, div28, null);
+    			append(div50, t35);
+    			append(div50, div49);
     			current = true;
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(div1, "click", /*showAboutModal*/ ctx[18]),
-    				listen(div1, "mouseover", /*mouseover_handler*/ ctx[26]),
-    				listen(div1, "mouseout", /*mouseout_handler*/ ctx[27]),
-    				listen(div2, "click", /*showContactUsModal*/ ctx[19]),
-    				listen(div2, "mouseover", /*mouseover_handler_1*/ ctx[28]),
-    				listen(div2, "mouseout", /*mouseout_handler_1*/ ctx[29]),
-    				listen(div7, "click", /*hideModal*/ ctx[17]),
-    				listen(div16, "click", /*hideModal*/ ctx[17])
+    				listen(div1, "click", /*showAboutModal*/ ctx[21]),
+    				listen(div1, "mouseover", /*mouseover_handler*/ ctx[31]),
+    				listen(div1, "mouseout", /*mouseout_handler*/ ctx[32]),
+    				listen(div2, "click", /*showContactUsModal*/ ctx[22]),
+    				listen(div2, "mouseover", /*mouseover_handler_1*/ ctx[33]),
+    				listen(div2, "mouseout", /*mouseout_handler_1*/ ctx[34]),
+    				listen(div3, "click", /*showAddResourcesModal*/ ctx[23]),
+    				listen(div3, "mouseover", /*mouseover_handler_2*/ ctx[35]),
+    				listen(div3, "mouseout", /*mouseout_handler_2*/ ctx[36]),
+    				listen(div8, "click", /*hideModal*/ ctx[20]),
+    				listen(textarea, "input", /*textarea_input_handler*/ ctx[42]),
+    				listen(div11, "click", /*postFeedback*/ ctx[26]),
+    				listen(div19, "click", /*hideModal*/ ctx[20]),
+    				listen(div28, "click", /*hideModal*/ ctx[20])
     			];
     		},
     		p(ctx, dirty) {
-    			if (!current || dirty[0] & /*aboutHover*/ 2 && div1_class_value !== (div1_class_value = "cursor-pointer " + (/*aboutHover*/ ctx[1] ? "cofrs-color" : "") + " mr-4" + " svelte-5j2okh")) {
+    			if (!current || dirty[0] & /*aboutHover*/ 2 && div1_class_value !== (div1_class_value = "cursor-pointer " + (/*aboutHover*/ ctx[1] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz")) {
     				attr(div1, "class", div1_class_value);
     			}
 
-    			if (!current || dirty[0] & /*contactUsHover*/ 1 && div2_class_value !== (div2_class_value = "cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " svelte-5j2okh")) {
+    			if (!current || dirty[0] & /*contactUsHover*/ 1 && div2_class_value !== (div2_class_value = "cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz")) {
     				attr(div2, "class", div2_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*addResourcesHover*/ 16 && div3_class_value !== (div3_class_value = "cursor-pointer " + (/*addResourcesHover*/ ctx[4] ? "cofrs-color" : "") + " svelte-eekrjz")) {
+    				attr(div3, "class", div3_class_value);
     			}
 
     			let previous_block_index = current_block_type_index;
@@ -1864,21 +1972,33 @@
     				}
 
     				transition_in(if_block, 1);
-    				if_block.m(div40, t8);
+    				if_block.m(div52, t10);
     			}
 
-    			if (!current || dirty[0] & /*contactUsModal, aboutModal*/ 12 && div5_class_value !== (div5_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[2] | /*aboutModal*/ ctx[3]
+    			if (!current || dirty[0] & /*contactUsModal, aboutModal, addResourcesModal*/ 44 && div6_class_value !== (div6_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[2] | /*aboutModal*/ ctx[3] | /*addResourcesModal*/ ctx[5]
     			? "visible"
     			: "invisible"))) {
-    				attr(div5, "class", div5_class_value);
+    				attr(div6, "class", div6_class_value);
     			}
 
-    			if (!current || dirty[0] & /*contactUsModal*/ 4 && div14_class_value !== (div14_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[2] ? "visible" : "invisible"))) {
-    				attr(div14, "class", div14_class_value);
+    			if (dirty[0] & /*feedbackContent*/ 8192) {
+    				set_input_value(textarea, /*feedbackContent*/ ctx[13]);
     			}
 
-    			if (!current || dirty[0] & /*aboutModal*/ 8 && div39_class_value !== (div39_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"))) {
-    				attr(div39, "class", div39_class_value);
+    			if (!current || dirty[0] & /*feedbackContent*/ 8192 && div11_class_value !== (div11_class_value = "border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none " + (/*feedbackContent*/ ctx[13] ? "hover:bg-gray-500" : ""))) {
+    				attr(div11, "class", div11_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*addResourcesModal*/ 32 && div17_class_value !== (div17_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*addResourcesModal*/ ctx[5] ? "visible" : "invisible"))) {
+    				attr(div17, "class", div17_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*contactUsModal*/ 4 && div26_class_value !== (div26_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[2] ? "visible" : "invisible"))) {
+    				attr(div26, "class", div26_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*aboutModal*/ 8 && div51_class_value !== (div51_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"))) {
+    				attr(div51, "class", div51_class_value);
     			}
     		},
     		i(local) {
@@ -1888,6 +2008,7 @@
     			transition_in(icon1.$$.fragment, local);
     			transition_in(icon2.$$.fragment, local);
     			transition_in(icon3.$$.fragment, local);
+    			transition_in(icon4.$$.fragment, local);
     			current = true;
     		},
     		o(local) {
@@ -1896,15 +2017,17 @@
     			transition_out(icon1.$$.fragment, local);
     			transition_out(icon2.$$.fragment, local);
     			transition_out(icon3.$$.fragment, local);
+    			transition_out(icon4.$$.fragment, local);
     			current = false;
     		},
     		d(detaching) {
-    			if (detaching) detach(div40);
+    			if (detaching) detach(div52);
     			if_blocks[current_block_type_index].d();
     			destroy_component(icon0);
     			destroy_component(icon1);
     			destroy_component(icon2);
     			destroy_component(icon3);
+    			destroy_component(icon4);
     			run_all(dispose);
     		}
     	};
@@ -1919,16 +2042,19 @@
     	let aboutHover = false;
     	let contactUsModal = false;
     	let aboutModal = false;
+    	let addResourcesHover = false;
+    	let addResourcesModal = false;
     	let searchText, pfSource = true, cord19Source = true;
     	let resultsMode = false;
     	let results;
     	let filters = {};
     	let filteredRecordCount = 0;
+    	let feedbackContent;
 
     	function init() {
-    		$$invalidate(7, resultsMode = false);
-    		$$invalidate(8, results = null);
-    		$$invalidate(9, filters = {});
+    		$$invalidate(9, resultsMode = false);
+    		$$invalidate(10, results = null);
+    		$$invalidate(11, filters = {});
     	}
 
     	window.onpopstate = event => {
@@ -1945,22 +2071,22 @@
 
     	function search() {
     		if (searchText) {
-    			$$invalidate(7, resultsMode = true);
+    			$$invalidate(9, resultsMode = true);
     			history.pushState("home", "");
 
     			fetchSearch(searchText, pfSource, cord19Source).then((resolve, reject) => {
-    				$$invalidate(8, results = resolve);
+    				$$invalidate(10, results = resolve);
     				history.pushState(results, "");
     			});
     		}
     	}
 
     	onMount(() => {
-    		$$invalidate(8, results = !history.state || history.state === "home" || history.state.status
+    		$$invalidate(10, results = !history.state || history.state === "home" || history.state.status
     		? null
     		: history.state);
 
-    		$$invalidate(7, resultsMode = results !== null);
+    		$$invalidate(9, resultsMode = results !== null);
     	});
 
     	function searchKeyup(e) {
@@ -1976,6 +2102,7 @@
     	function hideModal() {
     		$$invalidate(3, aboutModal = false);
     		$$invalidate(2, contactUsModal = false);
+    		$$invalidate(5, addResourcesModal = false);
     		document.removeEventListener("keyup", modalEscapeListener);
     	}
 
@@ -1989,6 +2116,12 @@
     		showModal();
     	}
 
+    	function showAddResourcesModal() {
+    		$$invalidate(5, addResourcesModal = true);
+    		$$invalidate(13, feedbackContent = null);
+    		showModal();
+    	}
+
     	function filter(sidebarItem) {
     		const newItems = [];
 
@@ -1998,8 +2131,8 @@
     			}
     		});
 
-    		$$invalidate(9, filters[sidebarItem] = newItems, filters);
-    		$$invalidate(9, filters);
+    		$$invalidate(11, filters[sidebarItem] = newItems, filters);
+    		$$invalidate(11, filters);
     	}
 
     	function returnToSearch() {
@@ -2023,32 +2156,53 @@
     		return filtered;
     	}
 
+    	function postFeedback() {
+    		if (feedbackContent) {
+    			const request = { feedbackContent };
+
+    			fetch("api/feedback", {
+    				method: "PUT",
+    				headers: { "Content-Type": "application/json" },
+    				body: JSON.stringify(request)
+    			}).then(() => {
+    				hideModal();
+    			});
+    		}
+    	}
+
     	const mouseover_handler = () => $$invalidate(1, aboutHover = true);
     	const mouseout_handler = () => $$invalidate(1, aboutHover = false);
     	const mouseover_handler_1 = () => $$invalidate(0, contactUsHover = true);
     	const mouseout_handler_1 = () => $$invalidate(0, contactUsHover = false);
+    	const mouseover_handler_2 = () => $$invalidate(4, addResourcesHover = true);
+    	const mouseout_handler_2 = () => $$invalidate(4, addResourcesHover = false);
 
     	function input0_input_handler() {
     		searchText = this.value;
-    		$$invalidate(4, searchText);
+    		$$invalidate(6, searchText);
     	}
 
     	function input1_change_handler() {
     		pfSource = this.checked;
-    		$$invalidate(5, pfSource);
+    		$$invalidate(7, pfSource);
     	}
 
     	function input2_change_handler() {
     		cord19Source = this.checked;
-    		$$invalidate(6, cord19Source);
+    		$$invalidate(8, cord19Source);
     	}
 
     	const click_handler = () => filter("purpose");
     	const click_handler_1 = () => filter("tags");
 
+    	function textarea_input_handler() {
+    		feedbackContent = this.value;
+    		$$invalidate(13, feedbackContent);
+    	}
+
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[0] & /*filters*/ 512) {
-    			 $$invalidate(10, filteredRecordCount = getFilteredRecordCount(filters));
+    		if ($$self.$$.dirty[0] & /*filters*/ 2048) {
+    			 $$invalidate(12, filteredRecordCount = getFilteredRecordCount(filters));
     		}
     	};
 
@@ -2057,6 +2211,8 @@
     		aboutHover,
     		contactUsModal,
     		aboutModal,
+    		addResourcesHover,
+    		addResourcesModal,
     		searchText,
     		pfSource,
     		cord19Source,
@@ -2064,6 +2220,7 @@
     		results,
     		filters,
     		filteredRecordCount,
+    		feedbackContent,
     		searchIcon,
     		closeModalIcon,
     		phoneIcon,
@@ -2073,8 +2230,10 @@
     		hideModal,
     		showAboutModal,
     		showContactUsModal,
+    		showAddResourcesModal,
     		filter,
     		returnToSearch,
+    		postFeedback,
     		init,
     		modalEscapeListener,
     		showModal,
@@ -2083,18 +2242,21 @@
     		mouseout_handler,
     		mouseover_handler_1,
     		mouseout_handler_1,
+    		mouseover_handler_2,
+    		mouseout_handler_2,
     		input0_input_handler,
     		input1_change_handler,
     		input2_change_handler,
     		click_handler,
-    		click_handler_1
+    		click_handler_1,
+    		textarea_input_handler
     	];
     }
 
     class App extends SvelteComponent {
     	constructor(options) {
     		super();
-    		if (!document_1.getElementById("svelte-5j2okh-style")) add_css$1();
+    		if (!document_1.getElementById("svelte-eekrjz-style")) add_css$1();
     		init(this, options, instance$2, create_fragment$2, safe_not_equal, {}, [-1, -1]);
     	}
     }
