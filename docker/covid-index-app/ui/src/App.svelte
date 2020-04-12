@@ -28,7 +28,7 @@
   let filteredRecordCount = 0;
   let feedbackContent;
   let facets;
-
+  
   function init() {
     resultsMode = false;
     results = null;
@@ -283,15 +283,17 @@
       <div class="app-height-about">
         <div class="mt-8 flex flex-col">
           <div class="mb-2">
-              We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.) please provide
-              the address (from your browser's address bar), a title, and (optionally) your contact information so we can reach you with any questions:
+              We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.)
+              you can share it with us via an
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0rqsWtha0D25mNM9dS_NnYFrzZBPkq4m8wK8K4icwAjyOQ/viewform" class="border-b border-dotted border-gray-800">online form (preferred)</a>
+              or you can provide the address (from your browser's address bar), a title, and (optionally) your contact information so we can reach you with any questions:
           </div>
           <div class="mb-4 flex flex-col items-center justify-center">
             <textarea class="h-40 w-full mb-2 border border-gray-800 p-1 ta-no-resize" bind:value={feedbackContent}></textarea>
             <div class="border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none {feedbackContent ? 'hover:bg-gray-500' : ''}" on:click="{postFeedback}">Submit</div>
           </div>
           <div class="mb-1">
-              Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org">info@policefoundation.org</a>.
+              Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org" class="border-b border-dotted border-gray-800">info@policefoundation.org</a>.
           </div>
         </div>
       </div>
