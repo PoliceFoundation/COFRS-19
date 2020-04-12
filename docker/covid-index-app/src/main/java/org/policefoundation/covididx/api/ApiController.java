@@ -50,8 +50,16 @@ public class ApiController {
 		
 	}
 	
+	@RequestMapping(value="/api/facets", method=RequestMethod.GET)
+	public FacetResponse getFacets() throws Exception {
+		RestTemplate restTemplate = new RestTemplate();
+		SolrFacetResponse solrResponse = restTemplate.getForObject(solrApiUrl + "select?q=*:*&rows=0&facet.field=covid_tags&facet.field=covid_purpose&facet=on", SolrFacetResponse.class);
+		return FacetResponse.fromSolrResponse(solrResponse);
+	}
+	
 	@RequestMapping(value="/api/feedback", method=RequestMethod.PUT)
 	public String feedback(@RequestBody FeedbackRequest feedbackRequest) throws Exception {
+		// note this is no longer used, as we are just directing the user to a google form
 		SlackWebhookRequest slackRequest = new SlackWebhookRequest();
 		slackRequest.text = feedbackRequest.feedbackContent;
 		log.info("Feedback text: " + slackRequest.text);

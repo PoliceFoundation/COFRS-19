@@ -7,7 +7,7 @@
   import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
   import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 
-  import { fetchSearch, getSidebarItems, filterRecord } from './query.js';
+  import { fetchSearch, getFacets, filterRecord } from './query.js';
 
   import { onMount } from 'svelte';
 
@@ -27,6 +27,7 @@
   let filters = {};
   let filteredRecordCount = 0;
   let feedbackContent;
+  let facets;
 
   function init() {
     resultsMode = false;
@@ -124,8 +125,6 @@
     return filtered;
   }
 
-  $: filteredRecordCount = getFilteredRecordCount(filters);
-
   function postFeedback() {
     if (feedbackContent) {
       const request = {
@@ -142,6 +141,26 @@
       });
     }
   }
+
+  getFacets().then((resolve, reject) => {
+    facets = resolve;
+  });
+
+  function isSidebarItemInResults(type, facet, results) {
+    let ret = false;
+    if (results) {
+      results.forEach(result => {
+        if (type==='purpose') {
+          ret |= result.purpose === facet;
+        } else if (type==='tags' && result.tags) {
+          ret |= result.tags.includes(facet);
+        }
+      });
+    }
+    return ret;
+  }
+
+  $: filteredRecordCount = getFilteredRecordCount(filters);
 
 </script>
 
@@ -220,17 +239,19 @@
   <div class="app-height-results">
     <div class="h-full w-full flex flex-row bg-gray-100 p-4">
       <div class="h-full w-1/4 bg-blue-100 rounded-lg text-sm p-2 overflow-y-auto">
-        {#if results}
+        {#if facets}
           <div class="font-semibold mb-2">Purpose</div>
           <ul>
-            {#each getSidebarItems(results, 'purpose') as purpose}
-            <li><input type="checkbox" class="mr-1 purpose-checkbox" data-purpose={purpose} on:click="{() => filter('purpose')}">{purpose}</li>
+            {#each facets['purpose'] as purpose}
+            <li class="{isSidebarItemInResults('purpose', purpose.facet, results) ? '' : 'italic text-gray-700'}"><input type="checkbox" class="mr-1 purpose-checkbox"
+              data-purpose={purpose.facet} on:click="{() => filter('purpose')}" checked disabled={!isSidebarItemInResults('purpose', purpose.facet, results)}>{purpose.facet}</li>
             {/each}
           </ul>
           <div class="font-semibold my-2">Tags</div>
           <ul>
-            {#each getSidebarItems(results, 'tags') as tag}
-            <li><input type="checkbox" class="mr-1 tags-checkbox" data-tags={tag} on:click="{() => filter('tags')}">{tag}</li>
+            {#each facets['tags'] as tag}
+            <li class="{isSidebarItemInResults('tags', tag.facet, results) ? '' : 'italic text-gray-700'}"><input type="checkbox" class="mr-1 tags-checkbox"
+              data-tags={tag.facet} on:click="{() => filter('tags')}" checked disabled={!isSidebarItemInResults('tags', tag.facet, results)}>{tag.facet}</li>
             {/each}
           </ul>
         {/if}

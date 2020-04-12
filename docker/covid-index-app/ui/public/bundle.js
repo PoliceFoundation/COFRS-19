@@ -410,6 +410,16 @@
       return fetchSearchRemote(searchText, pfSource, cord19Source);
     }
 
+    async function getFacets() {
+      const facets = fetch("api/facets", { method: "GET" }).then(response => {
+        return response.json().then(resultsData => {
+          return Promise.resolve(resultsData);
+        });
+      });
+      //const facets = Promise.resolve(DEMO_FACET_RESULT);
+      return facets;
+    }
+
     function fetchSearchRemote(searchText, pfSource, cord19Source) {
       const sources = [];
       if (pfSource) {
@@ -433,24 +443,6 @@
           return Promise.resolve(resultsData);
         });
       });
-    }
-
-    function getSidebarItems(results, sidebarItem) {
-      const ret = new Set();
-      results.forEach((result) => {
-        if (result[sidebarItem]) {
-          if (typeof result[sidebarItem] === 'string' || result[sidebarItem] instanceof String) {
-            ret.add(result[sidebarItem]);
-          } else {
-            result[sidebarItem].filter(item => {
-              return item && item !== '';
-            }).forEach((item) => {
-              ret.add(item);
-            });
-          }
-        }
-      });
-      return [...ret].sort();
     }
 
     function filterRecord(record, filters) {
@@ -920,23 +912,23 @@
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[43] = list[i];
+    	child_ctx[44] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[46] = list[i];
+    	child_ctx[47] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[49] = list[i];
+    	child_ctx[50] = list[i];
     	return child_ctx;
     }
 
-    // (219:2) {:else}
+    // (238:2) {:else}
     function create_else_block(ctx) {
     	let div4;
     	let div2;
@@ -946,7 +938,7 @@
     	let t1;
     	let div3;
     	let current;
-    	let if_block0 = /*results*/ ctx[10] && create_if_block_2(ctx);
+    	let if_block0 = /*facets*/ ctx[14] && create_if_block_2(ctx);
     	let if_block1 = /*results*/ ctx[10] && create_if_block_1(ctx);
 
     	return {
@@ -980,7 +972,7 @@
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (/*results*/ ctx[10]) {
+    			if (/*facets*/ ctx[14]) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -1030,7 +1022,7 @@
     	};
     }
 
-    // (194:2) {#if !resultsMode}
+    // (213:2) {#if !resultsMode}
     function create_if_block$1(ctx) {
     	let div11;
     	let div9;
@@ -1059,7 +1051,7 @@
 
     	const icon = new Icon({
     			props: {
-    				icon: /*searchIcon*/ ctx[14],
+    				icon: /*searchIcon*/ ctx[15],
     				class: "fill-current text-gray-500 text-2xl align-middle mt-4"
     			}
     		});
@@ -1083,7 +1075,7 @@
     			input1 = element("input");
     			t4 = space();
     			div3 = element("div");
-    			div3.textContent = "Include resources curated by the Police Foundation";
+    			div3.textContent = "Include resources curated by the National Police Foundation";
     			t6 = space();
     			div6 = element("div");
     			input2 = element("input");
@@ -1143,11 +1135,11 @@
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(input0, "input", /*input0_input_handler*/ ctx[37]),
-    				listen(input0, "keyup", /*searchKeyup*/ ctx[19]),
-    				listen(div1, "click", /*search*/ ctx[18]),
-    				listen(input1, "change", /*input1_change_handler*/ ctx[38]),
-    				listen(input2, "change", /*input2_change_handler*/ ctx[39])
+    				listen(input0, "input", /*input0_input_handler*/ ctx[38]),
+    				listen(input0, "keyup", /*searchKeyup*/ ctx[20]),
+    				listen(div1, "click", /*search*/ ctx[19]),
+    				listen(input1, "change", /*input1_change_handler*/ ctx[39]),
+    				listen(input2, "change", /*input2_change_handler*/ ctx[40])
     			];
     		},
     		p(ctx, dirty) {
@@ -1180,7 +1172,7 @@
     	};
     }
 
-    // (223:8) {#if results}
+    // (242:8) {#if facets}
     function create_if_block_2(ctx) {
     	let div0;
     	let t1;
@@ -1189,14 +1181,14 @@
     	let div1;
     	let t4;
     	let ul1;
-    	let each_value_2 = getSidebarItems(/*results*/ ctx[10], "purpose");
+    	let each_value_2 = /*facets*/ ctx[14]["purpose"];
     	let each_blocks_1 = [];
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value_1 = getSidebarItems(/*results*/ ctx[10], "tags");
+    	let each_value_1 = /*facets*/ ctx[14]["tags"];
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -1246,8 +1238,8 @@
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*results, filter*/ 16778240) {
-    				each_value_2 = getSidebarItems(/*results*/ ctx[10], "purpose");
+    			if (dirty[0] & /*facets, results, filter*/ 33571840) {
+    				each_value_2 = /*facets*/ ctx[14]["purpose"];
     				let i;
 
     				for (i = 0; i < each_value_2.length; i += 1) {
@@ -1269,8 +1261,8 @@
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*results, filter*/ 16778240) {
-    				each_value_1 = getSidebarItems(/*results*/ ctx[10], "tags");
+    			if (dirty[0] & /*facets, results, filter*/ 33571840) {
+    				each_value_1 = /*facets*/ ctx[14]["tags"];
     				let i;
 
     				for (i = 0; i < each_value_1.length; i += 1) {
@@ -1306,13 +1298,15 @@
     	};
     }
 
-    // (226:12) {#each getSidebarItems(results, 'purpose') as purpose}
+    // (245:12) {#each facets['purpose'] as purpose}
     function create_each_block_2(ctx) {
     	let li;
     	let input;
     	let input_data_purpose_value;
-    	let t_value = /*purpose*/ ctx[49] + "";
+    	let input_disabled_value;
+    	let t_value = /*purpose*/ ctx[50].facet + "";
     	let t;
+    	let li_class_value;
     	let dispose;
 
     	return {
@@ -1322,21 +1316,37 @@
     			t = text(t_value);
     			attr(input, "type", "checkbox");
     			attr(input, "class", "mr-1 purpose-checkbox");
-    			attr(input, "data-purpose", input_data_purpose_value = /*purpose*/ ctx[49]);
+    			attr(input, "data-purpose", input_data_purpose_value = /*purpose*/ ctx[50].facet);
+    			input.checked = true;
+    			input.disabled = input_disabled_value = !isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10]);
+
+    			attr(li, "class", li_class_value = isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10])
+    			? ""
+    			: "italic text-gray-700");
     		},
     		m(target, anchor, remount) {
     			insert(target, li, anchor);
     			append(li, input);
     			append(li, t);
     			if (remount) dispose();
-    			dispose = listen(input, "click", /*click_handler*/ ctx[40]);
+    			dispose = listen(input, "click", /*click_handler*/ ctx[41]);
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*results*/ 1024 && input_data_purpose_value !== (input_data_purpose_value = /*purpose*/ ctx[49])) {
+    			if (dirty[0] & /*facets*/ 16384 && input_data_purpose_value !== (input_data_purpose_value = /*purpose*/ ctx[50].facet)) {
     				attr(input, "data-purpose", input_data_purpose_value);
     			}
 
-    			if (dirty[0] & /*results*/ 1024 && t_value !== (t_value = /*purpose*/ ctx[49] + "")) set_data(t, t_value);
+    			if (dirty[0] & /*facets, results*/ 17408 && input_disabled_value !== (input_disabled_value = !isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10]))) {
+    				input.disabled = input_disabled_value;
+    			}
+
+    			if (dirty[0] & /*facets*/ 16384 && t_value !== (t_value = /*purpose*/ ctx[50].facet + "")) set_data(t, t_value);
+
+    			if (dirty[0] & /*facets, results*/ 17408 && li_class_value !== (li_class_value = isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10])
+    			? ""
+    			: "italic text-gray-700")) {
+    				attr(li, "class", li_class_value);
+    			}
     		},
     		d(detaching) {
     			if (detaching) detach(li);
@@ -1345,13 +1355,15 @@
     	};
     }
 
-    // (232:12) {#each getSidebarItems(results, 'tags') as tag}
+    // (252:12) {#each facets['tags'] as tag}
     function create_each_block_1(ctx) {
     	let li;
     	let input;
     	let input_data_tags_value;
-    	let t_value = /*tag*/ ctx[46] + "";
+    	let input_disabled_value;
+    	let t_value = /*tag*/ ctx[47].facet + "";
     	let t;
+    	let li_class_value;
     	let dispose;
 
     	return {
@@ -1361,21 +1373,37 @@
     			t = text(t_value);
     			attr(input, "type", "checkbox");
     			attr(input, "class", "mr-1 tags-checkbox");
-    			attr(input, "data-tags", input_data_tags_value = /*tag*/ ctx[46]);
+    			attr(input, "data-tags", input_data_tags_value = /*tag*/ ctx[47].facet);
+    			input.checked = true;
+    			input.disabled = input_disabled_value = !isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10]);
+
+    			attr(li, "class", li_class_value = isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10])
+    			? ""
+    			: "italic text-gray-700");
     		},
     		m(target, anchor, remount) {
     			insert(target, li, anchor);
     			append(li, input);
     			append(li, t);
     			if (remount) dispose();
-    			dispose = listen(input, "click", /*click_handler_1*/ ctx[41]);
+    			dispose = listen(input, "click", /*click_handler_1*/ ctx[42]);
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*results*/ 1024 && input_data_tags_value !== (input_data_tags_value = /*tag*/ ctx[46])) {
+    			if (dirty[0] & /*facets*/ 16384 && input_data_tags_value !== (input_data_tags_value = /*tag*/ ctx[47].facet)) {
     				attr(input, "data-tags", input_data_tags_value);
     			}
 
-    			if (dirty[0] & /*results*/ 1024 && t_value !== (t_value = /*tag*/ ctx[46] + "")) set_data(t, t_value);
+    			if (dirty[0] & /*facets, results*/ 17408 && input_disabled_value !== (input_disabled_value = !isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10]))) {
+    				input.disabled = input_disabled_value;
+    			}
+
+    			if (dirty[0] & /*facets*/ 16384 && t_value !== (t_value = /*tag*/ ctx[47].facet + "")) set_data(t, t_value);
+
+    			if (dirty[0] & /*facets, results*/ 17408 && li_class_value !== (li_class_value = isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10])
+    			? ""
+    			: "italic text-gray-700")) {
+    				attr(li, "class", li_class_value);
+    			}
     		},
     		d(detaching) {
     			if (detaching) detach(li);
@@ -1384,7 +1412,7 @@
     	};
     }
 
-    // (239:8) {#if results}
+    // (260:8) {#if results}
     function create_if_block_1(ctx) {
     	let div2;
     	let div0;
@@ -1467,7 +1495,7 @@
 
     			current = true;
     			if (remount) dispose();
-    			dispose = listen(div1, "click", /*returnToSearch*/ ctx[25]);
+    			dispose = listen(div1, "click", /*returnToSearch*/ ctx[26]);
     		},
     		p(ctx, dirty) {
     			if ((!current || dirty[0] & /*results*/ 1024) && t0_value !== (t0_value = /*results*/ ctx[10].length + "")) set_data(t0, t0_value);
@@ -1529,13 +1557,13 @@
     	};
     }
 
-    // (245:12) {#each results as record}
+    // (266:12) {#each results as record}
     function create_each_block(ctx) {
     	let current;
 
     	const resourcedetail = new ResourceDetail({
     			props: {
-    				record: /*record*/ ctx[43],
+    				record: /*record*/ ctx[44],
     				filters: /*filters*/ ctx[11]
     			}
     		});
@@ -1550,7 +1578,7 @@
     		},
     		p(ctx, dirty) {
     			const resourcedetail_changes = {};
-    			if (dirty[0] & /*results*/ 1024) resourcedetail_changes.record = /*record*/ ctx[43];
+    			if (dirty[0] & /*results*/ 1024) resourcedetail_changes.record = /*record*/ ctx[44];
     			if (dirty[0] & /*filters*/ 2048) resourcedetail_changes.filters = /*filters*/ ctx[11];
     			resourcedetail.$set(resourcedetail_changes);
     		},
@@ -1603,41 +1631,41 @@
     	let div15;
     	let div14;
     	let div10;
-    	let t16;
+    	let t18;
     	let div12;
     	let textarea;
-    	let t17;
-    	let div11;
-    	let t18;
-    	let div11_class_value;
     	let t19;
+    	let div11;
+    	let t20;
+    	let div11_class_value;
+    	let t21;
     	let div13;
     	let div17_class_value;
-    	let t23;
+    	let t25;
     	let div26;
     	let div25;
     	let div20;
     	let div18;
-    	let t25;
+    	let t27;
     	let div19;
-    	let t26;
+    	let t28;
     	let div24;
     	let div21;
-    	let t28;
-    	let div22;
-    	let a1;
     	let t30;
-    	let div23;
-    	let t31;
-    	let div26_class_value;
+    	let div22;
+    	let a2;
     	let t32;
+    	let div23;
+    	let t33;
+    	let div26_class_value;
+    	let t34;
     	let div51;
     	let div50;
     	let div29;
     	let div27;
-    	let t34;
+    	let t36;
     	let div28;
-    	let t35;
+    	let t37;
     	let div49;
     	let div51_class_value;
     	let current;
@@ -1655,35 +1683,35 @@
 
     	const icon0 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[15],
+    				icon: /*closeModalIcon*/ ctx[16],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	const icon1 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[15],
+    				icon: /*closeModalIcon*/ ctx[16],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	const icon2 = new Icon({
     			props: {
-    				icon: /*envelopeIcon*/ ctx[17],
+    				icon: /*envelopeIcon*/ ctx[18],
     				class: "fill-current text-gray-800 align-middle mr-2"
     			}
     		});
 
     	const icon3 = new Icon({
     			props: {
-    				icon: /*phoneIcon*/ ctx[16],
+    				icon: /*phoneIcon*/ ctx[17],
     				class: "fill-current text-gray-800 align-middle mr-2"
     			}
     		});
 
     	const icon4 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[15],
+    				icon: /*closeModalIcon*/ ctx[16],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
@@ -1721,52 +1749,59 @@
     			div15 = element("div");
     			div14 = element("div");
     			div10 = element("div");
-    			div10.textContent = "We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.) please provide\n              the address (from your browser's address bar), a title, and (optionally) your contact information so we can reach you with any questions:";
-    			t16 = space();
+
+    			div10.innerHTML = `
+              We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.)
+              you can share it with us via an
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0rqsWtha0D25mNM9dS_NnYFrzZBPkq4m8wK8K4icwAjyOQ/viewform" class="border-b border-dotted border-gray-800">online form (preferred)</a>
+              or you can provide the address (from your browser&#39;s address bar), a title, and (optionally) your contact information so we can reach you with any questions:
+          `;
+
+    			t18 = space();
     			div12 = element("div");
     			textarea = element("textarea");
-    			t17 = space();
-    			div11 = element("div");
-    			t18 = text("Submit");
     			t19 = space();
+    			div11 = element("div");
+    			t20 = text("Submit");
+    			t21 = space();
     			div13 = element("div");
 
     			div13.innerHTML = `
-              Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org">info@policefoundation.org</a>.
+              Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org" class="border-b border-dotted border-gray-800">info@policefoundation.org</a>.
           `;
 
-    			t23 = space();
+    			t25 = space();
     			div26 = element("div");
     			div25 = element("div");
     			div20 = element("div");
     			div18 = element("div");
     			div18.textContent = "Contact Us";
-    			t25 = space();
+    			t27 = space();
     			div19 = element("div");
     			create_component(icon1.$$.fragment);
-    			t26 = space();
+    			t28 = space();
     			div24 = element("div");
     			div21 = element("div");
     			div21.textContent = "National Police Foundation";
-    			t28 = space();
+    			t30 = space();
     			div22 = element("div");
     			create_component(icon2.$$.fragment);
-    			a1 = element("a");
-    			a1.textContent = "info@policefoundation.org";
-    			t30 = space();
+    			a2 = element("a");
+    			a2.textContent = "info@policefoundation.org";
+    			t32 = space();
     			div23 = element("div");
     			create_component(icon3.$$.fragment);
-    			t31 = text("202-833-1460");
-    			t32 = space();
+    			t33 = text("202-833-1460");
+    			t34 = space();
     			div51 = element("div");
     			div50 = element("div");
     			div29 = element("div");
     			div27 = element("div");
     			div27.textContent = "About this Site";
-    			t34 = space();
+    			t36 = space();
     			div28 = element("div");
     			create_component(icon4.$$.fragment);
-    			t35 = space();
+    			t37 = space();
     			div49 = element("div");
 
     			div49.innerHTML = `<div class=" mt-8 flex flex-col"><div class="font-semibold mb-1">Background</div> 
@@ -1836,8 +1871,8 @@
     			attr(div18, "class", "text-xl font-semibold");
     			attr(div20, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
     			attr(div21, "class", "font-semibold mb-1");
-    			attr(a1, "href", "mailto:info@policefoundation.org");
-    			attr(a1, "class", "border-b border-dotted border-gray-800");
+    			attr(a2, "href", "mailto:info@policefoundation.org");
+    			attr(a2, "class", "border-b border-dotted border-gray-800");
     			attr(div22, "class", "mb-px");
     			attr(div23, "class", "align-middle items-center");
     			attr(div24, "class", "mt-8 flex flex-col");
@@ -1880,62 +1915,62 @@
     			append(div16, div15);
     			append(div15, div14);
     			append(div14, div10);
-    			append(div14, t16);
+    			append(div14, t18);
     			append(div14, div12);
     			append(div12, textarea);
     			set_input_value(textarea, /*feedbackContent*/ ctx[13]);
-    			append(div12, t17);
+    			append(div12, t19);
     			append(div12, div11);
-    			append(div11, t18);
-    			append(div14, t19);
+    			append(div11, t20);
+    			append(div14, t21);
     			append(div14, div13);
-    			append(div52, t23);
+    			append(div52, t25);
     			append(div52, div26);
     			append(div26, div25);
     			append(div25, div20);
     			append(div20, div18);
-    			append(div20, t25);
+    			append(div20, t27);
     			append(div20, div19);
     			mount_component(icon1, div19, null);
-    			append(div25, t26);
+    			append(div25, t28);
     			append(div25, div24);
     			append(div24, div21);
-    			append(div24, t28);
+    			append(div24, t30);
     			append(div24, div22);
     			mount_component(icon2, div22, null);
-    			append(div22, a1);
-    			append(div24, t30);
+    			append(div22, a2);
+    			append(div24, t32);
     			append(div24, div23);
     			mount_component(icon3, div23, null);
-    			append(div23, t31);
-    			append(div52, t32);
+    			append(div23, t33);
+    			append(div52, t34);
     			append(div52, div51);
     			append(div51, div50);
     			append(div50, div29);
     			append(div29, div27);
-    			append(div29, t34);
+    			append(div29, t36);
     			append(div29, div28);
     			mount_component(icon4, div28, null);
-    			append(div50, t35);
+    			append(div50, t37);
     			append(div50, div49);
     			current = true;
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(div1, "click", /*showAboutModal*/ ctx[21]),
-    				listen(div1, "mouseover", /*mouseover_handler*/ ctx[31]),
-    				listen(div1, "mouseout", /*mouseout_handler*/ ctx[32]),
-    				listen(div2, "click", /*showContactUsModal*/ ctx[22]),
-    				listen(div2, "mouseover", /*mouseover_handler_1*/ ctx[33]),
-    				listen(div2, "mouseout", /*mouseout_handler_1*/ ctx[34]),
-    				listen(div3, "click", /*showAddResourcesModal*/ ctx[23]),
-    				listen(div3, "mouseover", /*mouseover_handler_2*/ ctx[35]),
-    				listen(div3, "mouseout", /*mouseout_handler_2*/ ctx[36]),
-    				listen(div8, "click", /*hideModal*/ ctx[20]),
-    				listen(textarea, "input", /*textarea_input_handler*/ ctx[42]),
-    				listen(div11, "click", /*postFeedback*/ ctx[26]),
-    				listen(div19, "click", /*hideModal*/ ctx[20]),
-    				listen(div28, "click", /*hideModal*/ ctx[20])
+    				listen(div1, "click", /*showAboutModal*/ ctx[22]),
+    				listen(div1, "mouseover", /*mouseover_handler*/ ctx[32]),
+    				listen(div1, "mouseout", /*mouseout_handler*/ ctx[33]),
+    				listen(div2, "click", /*showContactUsModal*/ ctx[23]),
+    				listen(div2, "mouseover", /*mouseover_handler_1*/ ctx[34]),
+    				listen(div2, "mouseout", /*mouseout_handler_1*/ ctx[35]),
+    				listen(div3, "click", /*showAddResourcesModal*/ ctx[24]),
+    				listen(div3, "mouseover", /*mouseover_handler_2*/ ctx[36]),
+    				listen(div3, "mouseout", /*mouseout_handler_2*/ ctx[37]),
+    				listen(div8, "click", /*hideModal*/ ctx[21]),
+    				listen(textarea, "input", /*textarea_input_handler*/ ctx[43]),
+    				listen(div11, "click", /*postFeedback*/ ctx[27]),
+    				listen(div19, "click", /*hideModal*/ ctx[21]),
+    				listen(div28, "click", /*hideModal*/ ctx[21])
     			];
     		},
     		p(ctx, dirty) {
@@ -2033,6 +2068,22 @@
     	};
     }
 
+    function isSidebarItemInResults(type, facet, results) {
+    	let ret = false;
+
+    	if (results) {
+    		results.forEach(result => {
+    			if (type === "purpose") {
+    				ret |= result.purpose === facet;
+    			} else if (type === "tags" && result.tags) {
+    				ret |= result.tags.includes(facet);
+    			}
+    		});
+    	}
+
+    	return ret;
+    }
+
     function instance$2($$self, $$props, $$invalidate) {
     	let searchIcon = faSearch_2;
     	let closeModalIcon = faTimesCircle_2;
@@ -2050,6 +2101,7 @@
     	let filters = {};
     	let filteredRecordCount = 0;
     	let feedbackContent;
+    	let facets;
 
     	function init() {
     		$$invalidate(9, resultsMode = false);
@@ -2170,6 +2222,10 @@
     		}
     	}
 
+    	getFacets().then((resolve, reject) => {
+    		$$invalidate(14, facets = resolve);
+    	});
+
     	const mouseover_handler = () => $$invalidate(1, aboutHover = true);
     	const mouseout_handler = () => $$invalidate(1, aboutHover = false);
     	const mouseover_handler_1 = () => $$invalidate(0, contactUsHover = true);
@@ -2221,6 +2277,7 @@
     		filters,
     		filteredRecordCount,
     		feedbackContent,
+    		facets,
     		searchIcon,
     		closeModalIcon,
     		phoneIcon,
