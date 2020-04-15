@@ -14,7 +14,7 @@ for index, row in df.iterrows():
 
   url = row['URL']
 
-  if re.match("^http", url):
+  if not pd.isna(url) and re.match("^http", url):
 
     url = hashStrip.sub("\\1", url)
   
