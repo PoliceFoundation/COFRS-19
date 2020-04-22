@@ -64,7 +64,7 @@ public class ApiController {
 		slackRequest.text = feedbackRequest.feedbackContent;
 		log.info("Feedback text: " + slackRequest.text);
 		RestTemplate restTemplate = new RestTemplate();
-		return restTemplate.postForObject("https://hooks.slack.com/services/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", slackRequest, String.class);
+		return restTemplate.postForObject("https://hooks.slack.com/services/[fill in keys here]", slackRequest, String.class);
 	}
 
 	private QueryResponse[] cord19ContentQuery(QueryRequest queryRequest) {
