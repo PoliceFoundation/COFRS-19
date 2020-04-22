@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.head.appendChild(r) })(window.document);
 (function () {
     'use strict';
 
@@ -406,43 +408,27 @@
     }
 
     function fetchSearch(searchText, pfSource, cord19Source) {
-      //return fetchSearchDemo(searchText, pfSource, cord19Source);
-      return fetchSearchRemote(searchText, pfSource, cord19Source);
+      return     fetchSearchDemo() ;
     }
 
     async function getFacets() {
-      const facets = fetch("api/facets", { method: "GET" }).then(response => {
-        return response.json().then(resultsData => {
-          return Promise.resolve(resultsData);
-        });
-      });
-      //const facets = Promise.resolve(DEMO_FACET_RESULT);
-      return facets;
+      return   Promise.resolve(DEMO_FACET_RESULT) ;
     }
 
-    function fetchSearchRemote(searchText, pfSource, cord19Source) {
-      const sources = [];
-      if (pfSource) {
-        sources.push("pf");
-      }
-      if (cord19Source) {
-        sources.push("cord-19");
-      }
-      const request = {
-        "query": searchText,
-        "sources": sources
-      };
-      return fetch("api/contentQuery", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(request)
-      }).then(response => {
-        return response.json().then(resultsData => {
-          return Promise.resolve(resultsData);
-        });
+    function fetchSearchDemo(searchText, pfSource, cord19Source) {
+      let result = DEMO_QUERY_RESULT;
+      result.sort((v1, v2) => {
+        let ret;
+        if (!v1 || !v1.date) {
+          ret = 1;
+        }
+        if (!v2 || !v2.date) {
+          ret = -1;
+        }
+        ret = v1.date.localeCompare(v2.date);
+        return -1 * ret;
       });
+      return Promise.resolve(result);
     }
 
     function filterRecord(record, filters) {
@@ -469,6 +455,910 @@
       });
       return ret;
     }
+
+    const DEMO_FACET_RESULT = {
+      "purpose": [
+          {
+              "facet": "Technical Resource",
+              "count": 14
+          },
+          {
+              "facet": "Webpage Resource",
+              "count": 10
+          },
+          {
+              "facet": "Policy Resource",
+              "count": 5
+          },
+          {
+              "facet": "Research Resource",
+              "count": 4
+          },
+          {
+              "facet": "Funding & Support Resource",
+              "count": 2
+          },
+          {
+              "facet": "News Resource",
+              "count": 1
+          },
+          {
+              "facet": "Training Resource",
+              "count": 1
+          }
+      ],
+      "tags": [
+          {
+              "facet": "Workforce Safety & Wellness",
+              "count": 21
+          },
+          {
+              "facet": "Management & Administration",
+              "count": 18
+          },
+          {
+              "facet": "Health & Medical",
+              "count": 15
+          },
+          {
+              "facet": "Supplies & Equipment",
+              "count": 12
+          },
+          {
+              "facet": "Leadership",
+              "count": 8
+          },
+          {
+              "facet": "Research & Data",
+              "count": 5
+          },
+          {
+              "facet": "Legislation & Public Policy",
+              "count": 4
+          },
+          {
+              "facet": "Policy or Legal",
+              "count": 4
+          },
+          {
+              "facet": "Staffing Strategies",
+              "count": 4
+          },
+          {
+              "facet": "Communications",
+              "count": 3
+          },
+          {
+              "facet": "Economy & Finance",
+              "count": 3
+          },
+          {
+              "facet": "Information Sharing",
+              "count": 3
+          },
+          {
+              "facet": "Civil Responses",
+              "count": 2
+          },
+          {
+              "facet": "Community Engagement",
+              "count": 1
+          },
+          {
+              "facet": "International Issues",
+              "count": 1
+          },
+          {
+              "facet": "Tactical Responses",
+              "count": 1
+          },
+          {
+              "facet": "Technology",
+              "count": 1
+          }
+      ]
+    };
+
+    const DEMO_QUERY_RESULT = [
+      {
+          "url": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019",
+          "tags": [
+              "Health & Medical",
+              "Workforce Safety & Wellness"
+          ],
+          "owner": "World Health Organization (WHO)",
+          "purpose": "Webpage Resource",
+          "type": "text/html",
+          "description": "Word Health Organization Coronavirus disease (COVID-19) Pandemic Website",
+          "title": "Coronavirus disease 2019",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.cdc.gov/coronavirus/2019-ncov/index.html",
+          "tags": [
+              "Workforce Safety & Wellness",
+              "Health & Medical",
+              "Management & Administration"
+          ],
+          "owner": "Centers for Disease Control (CDC)",
+          "purpose": "Webpage Resource",
+          "type": "text/html",
+          "description": "CDC Coronavirus (COVID-19) Website",
+          "title": "Coronavirus Disease 2019 (COVID-19) | CDC",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.fema.gov/coronavirus/best-practices",
+          "tags": [
+              "Economy & Finance",
+              "Legislation & Public Policy",
+              "Policy or Legal",
+              "Community Engagement"
+          ],
+          "owner": "Federal Emergency Management Agency (FEMA)",
+          "purpose": "Webpage Resource",
+          "type": "text/html",
+          "description": "FEMA Best Practices Site",
+          "title": "Coronavirus Emergency Management Best Practices | FEMA.gov",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.policeforum.org/coronavirus",
+          "tags": [
+              "Workforce Safety & Wellness",
+              "Leadership",
+              "Management & Administration"
+          ],
+          "owner": "Police Executive Research Forum (PERF)",
+          "purpose": "Webpage Resource",
+          "type": "application/xhtml+xml",
+          "description": "Responding to the COVID-19 Coronavirus",
+          "title": "Responding to the COVID-19 coronavirus",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://repository.netecweb.org/exhibits/show/ncov/item/688",
+          "tags": [
+              "Supplies & Equipment",
+              "Workforce Safety & Wellness",
+              "Health & Medical"
+          ],
+          "owner": "National Emerging Special Pathogens Training and Education Center (NETEC)",
+          "purpose": "Technical Resource",
+          "type": "text/html",
+          "description": "National Emerging Special Pathogen Training and Education Center",
+          "title": "NETEC: Personal Protective Equipment for 2019 Novel Coronavirus (COVID-19) · NETEC Repository",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.epa.gov/pesticide-registration/list-n-disinfectants-use-against-sars-cov-2",
+          "tags": [
+              "Workforce Safety & Wellness",
+              "Health & Medical"
+          ],
+          "owner": "Environmental Protection Agency (EPA)",
+          "purpose": "Technical Resource",
+          "type": "text/html",
+          "description": "List N: Disinfectants for Use Against SARS-CoV-2",
+          "title": "List N: Disinfectants for Use Against SARS-CoV-2 | Pesticide Registration | US EPA",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.cdc.gov/coronavirus/2019-ncov/faq.html",
+          "tags": [
+              "Workforce Safety & Wellness",
+              "Health & Medical",
+              "Management & Administration"
+          ],
+          "owner": "Centers for Disease Control (CDC)",
+          "purpose": "Webpage Resource",
+          "type": "text/html",
+          "description": "CDC Coronavirus (COVID-19) FAQ Site",
+          "title": "Frequently Asked Questions | CDC",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.cdc.gov/coronavirus/2019-ncov/hcp/ppe-strategy/burn-calculator.html",
+          "tags": [
+              "Supplies & Equipment",
+              "Management & Administration"
+          ],
+          "owner": "Centers for Disease Control (CDC)",
+          "purpose": "Technical Resource",
+          "type": "text/html",
+          "description": "Personal Protective Equipment (PPE) Burn Rate Calculator",
+          "title": "Personal Protective Equipment (PPE) Burn Rate Calculator | CDC",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.myiacp.org/COVID19libraryofresources",
+          "tags": [
+              "Workforce Safety & Wellness",
+              "Management & Administration",
+              "Leadership"
+          ],
+          "owner": "International Association of Chiefs of Police (IACP)",
+          "purpose": "Webpage Resource",
+          "type": "text/html",
+          "description": "IACP Coronavirus COVID-19 Resource Library",
+          "title": "COVID-19 Library of Resources - Community Hub",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://www.cdc.gov/coronavirus/2019-ncov/hcp/release-stockpiled-N95.html",
+          "tags": [
+              "Supplies & Equipment",
+              "Workforce Safety & Wellness",
+              "Health & Medical"
+          ],
+          "owner": "Centers for Disease Control (CDC)",
+          "purpose": "Technical Resource",
+          "type": "text/html",
+          "description": "Release of Stockpiled N95 Filtering Facepiece Respirators Beyond the Manufacturer-Designated Shelf Life: Considerations for the COVID-19 Response",
+          "title": "Release of Stockpiled N95 Filtering Facepiece Respirators Beyond the Manufacturer-Designated Shelf L",
+          "date": "2020-04-12",
+          "source": "pf"
+      },
+      {
+          "url": "https://doi.org/10.1007/bf01314455",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "G C Smith, T L Lester, R L I-Ieberlii~g, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus-like particles in nonhuman primate feces",
+          "title": "Coronavirus-like particles in nonhuman primate feces",
+          "date": "1982",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " S. Dea,  R. S.  Roy,  M. A. S. Y.  Elazhary",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus-like Particles in the Feces of a Cat with Diarrhea",
+          "title": "Coronavirus-like Particles in the Feces of a Cat with Diarrhea",
+          "date": "1982-05-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/s0195-5616(93)50001-3",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Johnny D Hoskins",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Infection in Cats",
+          "title": "Coronavirus Infection in Cats",
+          "date": "1993-01-31",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1038/emi.2017.37",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Patrick Cy Woo, Susanna Kp Lau, Chi-Ching Tsang, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus HKU15 in respiratory tract of pigs and first discovery of coronavirus quasispecies in 5′-untranslated region",
+          "title": "Coronavirus HKU15 in respiratory tract of pigs and first discovery of coronavirus quasispecies in 5′-untranslated region",
+          "date": "2017-06-21",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.virusres.2014.09.016",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Sing To, Mei Fung, Ding Xiang Huang, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus-induced ER stress response and its involvement in regulation of coronavirus–host interactions",
+          "title": "Coronavirus-induced ER stress response and its involvement in regulation of coronavirus–host interactions",
+          "date": "2014-12-19",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.2807/1560-7917.es.2020.25.11.2000230",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Emanuele Nicastri, Alessandra D'abramo, Giovanni Faggioni³, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus disease (COVID-19) in a paucisymptomatic patient: epidemiological and clinical challenge in settings with limited community transmission, Italy, February 2020",
+          "title": "Coronavirus disease (COVID-19) in a paucisymptomatic patient: epidemiological and clinical challenge in settings with limited community transmission, Italy, February 2020",
+          "date": "2020-03-19",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1007/s00018-007-7103-1",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "D X Liu, Q Yuan, Y Liao",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus envelope protein: A small membrane protein with multiple functions",
+          "title": "Coronavirus envelope protein: A small membrane protein with multiple functions",
+          "date": "2007-05-29",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.acra.2020.03.003",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Mingzhi Li, Pinggui Lei, Bingliang Zeng, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Disease (COVID-19): Spectrum of CT Findings and Temporal Progression of the Disease",
+          "title": "Coronavirus Disease (COVID-19): Spectrum of CT Findings and Temporal Progression of the Disease",
+          "date": "2020-03-20",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1038/d41586-020-00589-1",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Nature",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus nixes conference, twilight zone beckons and a faded star brightens",
+          "title": "Coronavirus nixes conference, twilight zone beckons and a faded star brightens",
+          "date": "2020-03-01",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Cornelis A. M. de Haan,  Lili  Kuo,  Paul S.  Masters, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Particle Assembly: Primary Structure Requirements of the Membrane Protein",
+          "title": "Coronavirus Particle Assembly: Primary Structure Requirements of the Membrane Protein",
+          "date": "1998-08-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.virusres.2014.07.024",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Marta L Dediego, Jose L Nieto-Torres, Jose M Jimenez-Guardeño, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus virulence genes with main focus on SARS-CoV envelope gene",
+          "title": "Coronavirus virulence genes with main focus on SARS-CoV envelope gene",
+          "date": "2014-12-19",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1128/jvi.00407-08",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Etienne Decroly,  Isabelle  Imbert,  Bruno  Coutard, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Nonstructural Protein 16 Is a Cap-0 Binding Enzyme Possessing (Nucleoside-2′O)-Methyltransferase Activity",
+          "title": "Coronavirus Nonstructural Protein 16 Is a Cap-0 Binding Enzyme Possessing (Nucleoside-2′O)-Methyltransferase Activity",
+          "date": "2008-04-16",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.virol.2012.07.005",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Carmina Verdiá -Bá Guena, Jose L Nieto-Torres, Antonio Alcaraz, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus E protein forms ion channels with functionally and structurally-involved membrane lipids",
+          "title": "Coronavirus E protein forms ion channels with functionally and structurally-involved membrane lipids",
+          "date": "2012-10-25",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/0882-4010(87)90066-0",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Ehud Lavi,'*', Akin Suzumura, Mikio Hirayama, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus mouse hepatitis virus (MHV)-A59 causes a persistent, productive infection in primary glial cell cultures",
+          "title": "Coronavirus mouse hepatitis virus (MHV)-A59 causes a persistent, productive infection in primary glial cell cultures",
+          "date": "1987-08-31",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1007/bf01538652",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Alan Y Sakaguchi, Thomas B Shows",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus 229E susceptibility in man-mouse hybrids is located on human chromosome 15",
+          "title": "Coronavirus 229E susceptibility in man-mouse hybrids is located on human chromosome 15",
+          "date": "1982",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1128/jvi.00017-08",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " John Bechill,  Zhongbin  Chen,  Joseph W.  Brewer, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Infection Modulates the Unfolded Protein Response and Mediates Sustained Translational Repression",
+          "title": "Coronavirus Infection Modulates the Unfolded Protein Response and Mediates Sustained Translational Repression",
+          "date": "2008-02-27",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1006/viro.1993.1109",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Yun Wang, Barbara Detrick, ! And, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus (JHM) Replication within the Retina: Analysis of Cell Tropism in Mouse Retinal Cell Cultures",
+          "title": "Coronavirus (JHM) Replication within the Retina: Analysis of Cell Tropism in Mouse Retinal Cell Cultures",
+          "date": "1993-03-31",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.ympev.2005.03.030",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Wen-Xin Zheng, Ling-Ling Chen, Hong-Yu Ou, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus phylogeny based on a geometric approach",
+          "title": "Coronavirus phylogeny based on a geometric approach",
+          "date": "2005-08-31",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.virol.2017.10.004",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Yong Wah Tan, To Sing Fung, Hongyuan Shen, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus infectious bronchitis virus non-structural proteins 8 and 12 form stable complex independent of the non-translated regions of viral RNA and other viral proteins",
+          "title": "Coronavirus infectious bronchitis virus non-structural proteins 8 and 12 form stable complex independent of the non-translated regions of viral RNA and other viral proteins",
+          "date": "2018-01-01",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " S R Compton,  C B  Stephensen,  S W  Snyder, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus species specificity: murine coronavirus binds to a mouse-specific epitope on its carcinoembryonic antigen-related receptor glycoprotein.",
+          "title": "Coronavirus species specificity: murine coronavirus binds to a mouse-specific epitope on its carcinoembryonic antigen-related receptor glycoprotein.",
+          "date": "1992-12-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1080/01478885.2020.1734718",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Anthony F. Henwood",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus disinfection in histopathology",
+          "title": "Coronavirus disinfection in histopathology",
+          "date": "2020-03-01",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1007/3-540-26765-4_1",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "D A Brian, R S Baric",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Genome Structure and Replication",
+          "title": "Coronavirus Genome Structure and Replication",
+          "date": "2005",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " S G Sawicki,  D L  Sawicki",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus minus-strand RNA synthesis and effect of cycloheximide on coronavirus RNA synthesis.",
+          "title": "Coronavirus minus-strand RNA synthesis and effect of cycloheximide on coronavirus RNA synthesis.",
+          "date": "1986-01-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1101/2020.04.03.003699",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Yifei Lang, Wentao Li, Zeshi Li, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus hemagglutinin-esterase and spike proteins co-evolve for functional balance and optimal virion avidity",
+          "title": "Coronavirus hemagglutinin-esterase and spike proteins co-evolve for functional balance and optimal virion avidity",
+          "date": "2020-04-05",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.3389/fmicb.2014.00296",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "To S Fung, Ding X Liu",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus infection, ER stress, apoptosis and innate immunity",
+          "title": "Coronavirus infection, ER stress, apoptosis and innate immunity",
+          "date": "2014-06-17",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.amjmed.2015.05.034",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Geoffrey J Gorse, Mary M Donovan, Gira B Patel, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus and Other Respiratory Illnesses Comparing Older with Young Adults",
+          "title": "Coronavirus and Other Respiratory Illnesses Comparing Older with Young Adults",
+          "date": "2015-11-30",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " X Zhang,  C L  Liao,  M M  Lai",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus leader RNA regulates and initiates subgenomic mRNA transcription both in trans and in cis.",
+          "title": "Coronavirus leader RNA regulates and initiates subgenomic mRNA transcription both in trans and in cis.",
+          "date": "1994-08-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1177/0022034520914246",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " L. Meng,  F.  Hua,  Z.  Bian",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Disease 2019 (COVID-19): Emerging and Future Challenges for Dental and Oral Medicine",
+          "title": "Coronavirus Disease 2019 (COVID-19): Emerging and Future Challenges for Dental and Oral Medicine",
+          "date": "2020-03-12",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Stuart G. Siddell,  Helmut  Wege,  Andrea  Barthel, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus JHM: Cell-Free Synthesis of Structural Protein p60",
+          "title": "Coronavirus JHM: Cell-Free Synthesis of Structural Protein p60",
+          "date": "1980-01-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/0022-2836(81)90463-0",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "H Niemann, H.-D Klenk",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus glycoprotein E1, a new type of viral glycoprotein",
+          "title": "Coronavirus glycoprotein E1, a new type of viral glycoprotein",
+          "date": "1981-12-25",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1007/0-387-25518-4_46",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Fumihiro Taguchi",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Receptors",
+          "title": "Coronavirus Receptors",
+          "date": "2005",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1128/jcm.02614-05",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Susanna K. P. Lau,  Patrick C. Y.  Woo,  Cyril C. Y.  Yip, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus HKU1 and Other Coronavirus Infections in Hong Kong",
+          "title": "Coronavirus HKU1 and Other Coronavirus Infections in Hong Kong",
+          "date": "2006-06-01",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1006/viro.1996.0118",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Seok Yong, John F Repass, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Transcription Mediated by Sequences Flanking the Transcription Consensus Sequence",
+          "title": "Coronavirus Transcription Mediated by Sequences Flanking the Transcription Consensus Sequence",
+          "date": "1996-03-01",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1006/viro.1994.1383",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Stanley M. Tahara,  Therese A.  Dietlin,  Cornelia C.  Bergmann, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Translational Regulation: Leader Affects mRNA Efficiency",
+          "title": "Coronavirus Translational Regulation: Leader Affects mRNA Efficiency",
+          "date": "1994-08-01",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1007/0-387-25518-4_44",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Regina C Armstrong, Jeffrey M Redwine, Donna J Messersmith",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus-Induced Demyelination and Spontaneous Remyelination: Growth factor expression and function",
+          "title": "Coronavirus-Induced Demyelination and Spontaneous Remyelination: Growth factor expression and function",
+          "date": "2005",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Pierre Baudoux,  Charles  Carrat,  Lydia  Besnardeau, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Pseudoparticles Formed with Recombinant M and E Proteins Induce Alpha Interferon Synthesis by Leukocytes",
+          "title": "Coronavirus Pseudoparticles Formed with Recombinant M and E Proteins Induce Alpha Interferon Synthesis by Leukocytes",
+          "date": "1998-11-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1007/3-7643-7339-3_2",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "A Schmidt, M H Wolff, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus infections in veterinary medicine",
+          "title": "Coronavirus infections in veterinary medicine",
+          "date": "2005",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " P B Sethna,  D A  Brian",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus genomic and subgenomic minus-strand RNAs copartition in membrane-protected replication complexes.",
+          "title": "Coronavirus genomic and subgenomic minus-strand RNAs copartition in membrane-protected replication complexes.",
+          "date": "1997-10-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1021/cen-09809-buscon1",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus cancels chemical events",
+          "title": "Coronavirus cancels chemical events",
+          "date": "2020-03-09",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.3390/v2081803",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Patrick C Y Woo, Yi Huang, Susanna K P Lau, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Genomics and Bioinformatics Analysis",
+          "title": "Coronavirus Genomics and Bioinformatics Analysis",
+          "date": "2010-08-24",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/s2468-2667(20)30051-7",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Marc Fadel,  Jérôme  Salomon,  Alexis  Descatha",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus outbreak: the role of companies in preparedness and responses",
+          "title": "Coronavirus outbreak: the role of companies in preparedness and responses",
+          "date": "2020-02-28",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " D F Stern,  S I  Kennedy",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus multiplication strategy. II. Mapping the avian infectious bronchitis virus intracellular RNA species to the genome.",
+          "title": "Coronavirus multiplication strategy. II. Mapping the avian infectious bronchitis virus intracellular RNA species to the genome.",
+          "date": "1980-11-10",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Sungwhan An,  Akihiko  Maeda,  Shinji  Makino",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Transcription Early in Infection",
+          "title": "Coronavirus Transcription Early in Infection",
+          "date": "1998-11-10",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1080/13550280490280292",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Sonia Navas-Martín, Susan R Weiss",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus replication and pathogenesis: Implications for the recent outbreak of severe acute respiratory syndrome (SARS), and the challenge for vaccine development",
+          "title": "Coronavirus replication and pathogenesis: Implications for the recent outbreak of severe acute respiratory syndrome (SARS), and the challenge for vaccine development",
+          "date": "2004",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/j.jacr.2020.02.008",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "Soheil Kooraki, Melina Hosseiny, Lee Myers, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus (COVID-19) Outbreak: What the Department of Radiology Should Know",
+          "title": "Coronavirus (COVID-19) Outbreak: What the Department of Radiology Should Know",
+          "date": "2020-04-30",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1016/0168-1702(86)90037-7",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "David Cavanagh', Philip J Davis, I Darryl, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus IBV: Partial amino terminal sequencing of spike polypeptide S2 identifies the sequence Arg-Arg-Phe-Arg-Arg at the cleavage site of the spike precursor propolypeptide of IBV strains Beaudette and M41",
+          "title": "Coronavirus IBV: Partial amino terminal sequencing of spike polypeptide S2 identifies the sequence Arg-Arg-Phe-Arg-Arg at the cleavage site of the spike precursor propolypeptide of IBV strains Beaudette and M41",
+          "date": "1986-02-28",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.2214/ajr.20.23034",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Sana Salehi,  Aidin  Abedi,  Sudheer  Balakrishnan, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Disease 2019 (COVID-19): A Systematic Review of Imaging Findings in 919 Patients",
+          "title": "Coronavirus Disease 2019 (COVID-19): A Systematic Review of Imaging Findings in 919 Patients",
+          "date": "2020-03-14",
+          "source": "cord-19"
+      },
+      {
+          "url": null,
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Adrian Cho",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus just caused the American Physical Society to cancel its biggest meeting of the year | Science | AAAS",
+          "title": "Coronavirus just caused the American Physical Society to cancel its biggest meeting of the year | Science | AAAS",
+          "date": "2020",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1128/jvi.78.7.3398-3406.2004",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": " Yun Li,  Li  Fu,  Donna M.  Gonzales, et al",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus Neurovirulence Correlates with the Ability of the Virus To Induce Proinflammatory Cytokine Signals from Astrocytes and Microglia",
+          "title": "Coronavirus Neurovirulence Correlates with the Ability of the Virus To Induce Proinflammatory Cytokine Signals from Astrocytes and Microglia",
+          "date": "2004-03-11",
+          "source": "cord-19"
+      },
+      {
+          "url": "https://doi.org/10.1038/d41586-020-00154-w",
+          "tags": [
+              "Research & Data"
+          ],
+          "owner": "",
+          "purpose": "Research Resource",
+          "type": "text/html",
+          "description": "Coronavirus latest: Trump requests $2.5 billion for coronavirus response",
+          "title": "Coronavirus latest: Trump requests $2.5 billion for coronavirus response",
+          "date": "2020-03-17",
+          "source": "cord-19"
+      }
+    ];
 
     /* src/ResourceDetail.svelte generated by Svelte v3.20.1 */
 
@@ -905,30 +1795,30 @@
 
     function add_css$1() {
     	var style = element("style");
-    	style.id = "svelte-eekrjz-style";
-    	style.textContent = ".body-font.svelte-eekrjz{font-family:\"Lato\",\"Helvetica Neue\",\"Arial\",\"Helvetica\",-apple-system,sans-serif;-webkit-font-smoothing:antialiased}.body-background.svelte-eekrjz{background-image:linear-gradient(0deg, rgb(152,193,219) 7%, rgb(0, 90, 142) 100%)\n  }.app-height-query.svelte-eekrjz{height:calc(100% - 400px)}.app-height-results.svelte-eekrjz{height:calc(100% - 100px)}.app-height-about.svelte-eekrjz{height:calc(100% - 80px)}.cofrs-color.svelte-eekrjz{color:rgb(255, 196, 60)}.nav-bottom-color.svelte-eekrjz{border-color:rgba(255,255,255,0.2)\n  }.ta-no-resize.svelte-eekrjz{resize:none\n  }";
+    	style.id = "svelte-z70bto-style";
+    	style.textContent = ".body-font.svelte-z70bto{font-family:\"Lato\",\"Helvetica Neue\",\"Arial\",\"Helvetica\",-apple-system,sans-serif;-webkit-font-smoothing:antialiased}.body-background.svelte-z70bto{background-image:linear-gradient(0deg, rgb(152,193,219) 7%, rgb(0, 90, 142) 100%)\n  }.app-height-query.svelte-z70bto{height:calc(100% - 400px)}.app-height-results.svelte-z70bto{height:calc(100% - 100px)}.app-height-about.svelte-z70bto{height:calc(100% - 80px)}.cofrs-color.svelte-z70bto{color:rgb(255, 196, 60)}.nav-border-color.svelte-z70bto{border-color:rgba(255,255,255,0.2)\n  }.ta-no-resize.svelte-z70bto{resize:none\n  }";
     	append(document_1.head, style);
     }
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[44] = list[i];
+    	child_ctx[49] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[47] = list[i];
+    	child_ctx[52] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[50] = list[i];
+    	child_ctx[55] = list[i];
     	return child_ctx;
     }
 
-    // (238:2) {:else}
+    // (253:2) {:else}
     function create_else_block(ctx) {
     	let div4;
     	let div2;
@@ -938,8 +1828,8 @@
     	let t1;
     	let div3;
     	let current;
-    	let if_block0 = /*facets*/ ctx[14] && create_if_block_2(ctx);
-    	let if_block1 = /*results*/ ctx[10] && create_if_block_1(ctx);
+    	let if_block0 = /*facets*/ ctx[16] && create_if_block_2(ctx);
+    	let if_block1 = /*results*/ ctx[12] && create_if_block_1(ctx);
 
     	return {
     		c() {
@@ -957,7 +1847,7 @@
     			attr(div1, "class", "h-full w-full flex flex-col ml-4");
     			attr(div2, "class", "h-full w-full flex flex-row bg-gray-100 p-4");
     			attr(div3, "class", "text-black w-full text-center bg-gray-400 py-4");
-    			attr(div4, "class", "app-height-results svelte-eekrjz");
+    			attr(div4, "class", "app-height-results svelte-z70bto");
     		},
     		m(target, anchor) {
     			insert(target, div4, anchor);
@@ -972,7 +1862,7 @@
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (/*facets*/ ctx[14]) {
+    			if (/*facets*/ ctx[16]) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -985,7 +1875,7 @@
     				if_block0 = null;
     			}
 
-    			if (/*results*/ ctx[10]) {
+    			if (/*results*/ ctx[12]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     					transition_in(if_block1, 1);
@@ -1022,7 +1912,7 @@
     	};
     }
 
-    // (213:2) {#if !resultsMode}
+    // (228:2) {#if !resultsMode}
     function create_if_block$1(ctx) {
     	let div11;
     	let div9;
@@ -1051,7 +1941,7 @@
 
     	const icon = new Icon({
     			props: {
-    				icon: /*searchIcon*/ ctx[15],
+    				icon: /*searchIcon*/ ctx[17],
     				class: "fill-current text-gray-500 text-2xl align-middle mt-4"
     			}
     		});
@@ -1102,7 +1992,7 @@
     			attr(div8, "class", "mt-64 w-full flex flex-col items-center");
     			attr(div9, "class", "h-full w-full items-center");
     			attr(div10, "class", "text-white w-full text-center");
-    			attr(div11, "class", "app-height-query svelte-eekrjz");
+    			attr(div11, "class", "app-height-query svelte-z70bto");
     		},
     		m(target, anchor, remount) {
     			insert(target, div11, anchor);
@@ -1112,7 +2002,7 @@
     			append(div8, t1);
     			append(div8, div2);
     			append(div2, input0);
-    			set_input_value(input0, /*searchText*/ ctx[6]);
+    			set_input_value(input0, /*searchText*/ ctx[8]);
     			append(div2, t2);
     			append(div2, div1);
     			mount_component(icon, div1, null);
@@ -1120,13 +2010,13 @@
     			append(div8, div7);
     			append(div7, div4);
     			append(div4, input1);
-    			input1.checked = /*pfSource*/ ctx[7];
+    			input1.checked = /*pfSource*/ ctx[9];
     			append(div4, t4);
     			append(div4, div3);
     			append(div7, t6);
     			append(div7, div6);
     			append(div6, input2);
-    			input2.checked = /*cord19Source*/ ctx[8];
+    			input2.checked = /*cord19Source*/ ctx[10];
     			append(div6, t7);
     			append(div6, div5);
     			append(div11, t10);
@@ -1135,24 +2025,24 @@
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(input0, "input", /*input0_input_handler*/ ctx[38]),
-    				listen(input0, "keyup", /*searchKeyup*/ ctx[20]),
-    				listen(div1, "click", /*search*/ ctx[19]),
-    				listen(input1, "change", /*input1_change_handler*/ ctx[39]),
-    				listen(input2, "change", /*input2_change_handler*/ ctx[40])
+    				listen(input0, "input", /*input0_input_handler*/ ctx[43]),
+    				listen(input0, "keyup", /*searchKeyup*/ ctx[22]),
+    				listen(div1, "click", /*search*/ ctx[21]),
+    				listen(input1, "change", /*input1_change_handler*/ ctx[44]),
+    				listen(input2, "change", /*input2_change_handler*/ ctx[45])
     			];
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*searchText*/ 64 && input0.value !== /*searchText*/ ctx[6]) {
-    				set_input_value(input0, /*searchText*/ ctx[6]);
+    			if (dirty[0] & /*searchText*/ 256 && input0.value !== /*searchText*/ ctx[8]) {
+    				set_input_value(input0, /*searchText*/ ctx[8]);
     			}
 
-    			if (dirty[0] & /*pfSource*/ 128) {
-    				input1.checked = /*pfSource*/ ctx[7];
+    			if (dirty[0] & /*pfSource*/ 512) {
+    				input1.checked = /*pfSource*/ ctx[9];
     			}
 
-    			if (dirty[0] & /*cord19Source*/ 256) {
-    				input2.checked = /*cord19Source*/ ctx[8];
+    			if (dirty[0] & /*cord19Source*/ 1024) {
+    				input2.checked = /*cord19Source*/ ctx[10];
     			}
     		},
     		i(local) {
@@ -1172,7 +2062,7 @@
     	};
     }
 
-    // (242:8) {#if facets}
+    // (257:8) {#if facets}
     function create_if_block_2(ctx) {
     	let div0;
     	let t1;
@@ -1181,14 +2071,14 @@
     	let div1;
     	let t4;
     	let ul1;
-    	let each_value_2 = /*facets*/ ctx[14]["purpose"];
+    	let each_value_2 = /*facets*/ ctx[16]["purpose"];
     	let each_blocks_1 = [];
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value_1 = /*facets*/ ctx[14]["tags"];
+    	let each_value_1 = /*facets*/ ctx[16]["tags"];
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -1238,8 +2128,8 @@
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*facets, results, filter*/ 33571840) {
-    				each_value_2 = /*facets*/ ctx[14]["purpose"];
+    			if (dirty[0] & /*facets, results, filter*/ 268505088) {
+    				each_value_2 = /*facets*/ ctx[16]["purpose"];
     				let i;
 
     				for (i = 0; i < each_value_2.length; i += 1) {
@@ -1261,8 +2151,8 @@
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*facets, results, filter*/ 33571840) {
-    				each_value_1 = /*facets*/ ctx[14]["tags"];
+    			if (dirty[0] & /*facets, results, filter*/ 268505088) {
+    				each_value_1 = /*facets*/ ctx[16]["tags"];
     				let i;
 
     				for (i = 0; i < each_value_1.length; i += 1) {
@@ -1298,13 +2188,13 @@
     	};
     }
 
-    // (245:12) {#each facets['purpose'] as purpose}
+    // (260:12) {#each facets['purpose'] as purpose}
     function create_each_block_2(ctx) {
     	let li;
     	let input;
     	let input_data_purpose_value;
     	let input_disabled_value;
-    	let t_value = /*purpose*/ ctx[50].facet + "";
+    	let t_value = /*purpose*/ ctx[55].facet + "";
     	let t;
     	let li_class_value;
     	let dispose;
@@ -1316,11 +2206,11 @@
     			t = text(t_value);
     			attr(input, "type", "checkbox");
     			attr(input, "class", "mr-1 purpose-checkbox");
-    			attr(input, "data-purpose", input_data_purpose_value = /*purpose*/ ctx[50].facet);
+    			attr(input, "data-purpose", input_data_purpose_value = /*purpose*/ ctx[55].facet);
     			input.checked = true;
-    			input.disabled = input_disabled_value = !isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10]);
+    			input.disabled = input_disabled_value = !isSidebarItemInResults("purpose", /*purpose*/ ctx[55].facet, /*results*/ ctx[12]);
 
-    			attr(li, "class", li_class_value = isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10])
+    			attr(li, "class", li_class_value = isSidebarItemInResults("purpose", /*purpose*/ ctx[55].facet, /*results*/ ctx[12])
     			? ""
     			: "italic text-gray-700");
     		},
@@ -1329,20 +2219,20 @@
     			append(li, input);
     			append(li, t);
     			if (remount) dispose();
-    			dispose = listen(input, "click", /*click_handler*/ ctx[41]);
+    			dispose = listen(input, "click", /*click_handler*/ ctx[46]);
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*facets*/ 16384 && input_data_purpose_value !== (input_data_purpose_value = /*purpose*/ ctx[50].facet)) {
+    			if (dirty[0] & /*facets*/ 65536 && input_data_purpose_value !== (input_data_purpose_value = /*purpose*/ ctx[55].facet)) {
     				attr(input, "data-purpose", input_data_purpose_value);
     			}
 
-    			if (dirty[0] & /*facets, results*/ 17408 && input_disabled_value !== (input_disabled_value = !isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10]))) {
+    			if (dirty[0] & /*facets, results*/ 69632 && input_disabled_value !== (input_disabled_value = !isSidebarItemInResults("purpose", /*purpose*/ ctx[55].facet, /*results*/ ctx[12]))) {
     				input.disabled = input_disabled_value;
     			}
 
-    			if (dirty[0] & /*facets*/ 16384 && t_value !== (t_value = /*purpose*/ ctx[50].facet + "")) set_data(t, t_value);
+    			if (dirty[0] & /*facets*/ 65536 && t_value !== (t_value = /*purpose*/ ctx[55].facet + "")) set_data(t, t_value);
 
-    			if (dirty[0] & /*facets, results*/ 17408 && li_class_value !== (li_class_value = isSidebarItemInResults("purpose", /*purpose*/ ctx[50].facet, /*results*/ ctx[10])
+    			if (dirty[0] & /*facets, results*/ 69632 && li_class_value !== (li_class_value = isSidebarItemInResults("purpose", /*purpose*/ ctx[55].facet, /*results*/ ctx[12])
     			? ""
     			: "italic text-gray-700")) {
     				attr(li, "class", li_class_value);
@@ -1355,13 +2245,13 @@
     	};
     }
 
-    // (252:12) {#each facets['tags'] as tag}
+    // (267:12) {#each facets['tags'] as tag}
     function create_each_block_1(ctx) {
     	let li;
     	let input;
     	let input_data_tags_value;
     	let input_disabled_value;
-    	let t_value = /*tag*/ ctx[47].facet + "";
+    	let t_value = /*tag*/ ctx[52].facet + "";
     	let t;
     	let li_class_value;
     	let dispose;
@@ -1373,11 +2263,11 @@
     			t = text(t_value);
     			attr(input, "type", "checkbox");
     			attr(input, "class", "mr-1 tags-checkbox");
-    			attr(input, "data-tags", input_data_tags_value = /*tag*/ ctx[47].facet);
+    			attr(input, "data-tags", input_data_tags_value = /*tag*/ ctx[52].facet);
     			input.checked = true;
-    			input.disabled = input_disabled_value = !isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10]);
+    			input.disabled = input_disabled_value = !isSidebarItemInResults("tags", /*tag*/ ctx[52].facet, /*results*/ ctx[12]);
 
-    			attr(li, "class", li_class_value = isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10])
+    			attr(li, "class", li_class_value = isSidebarItemInResults("tags", /*tag*/ ctx[52].facet, /*results*/ ctx[12])
     			? ""
     			: "italic text-gray-700");
     		},
@@ -1386,20 +2276,20 @@
     			append(li, input);
     			append(li, t);
     			if (remount) dispose();
-    			dispose = listen(input, "click", /*click_handler_1*/ ctx[42]);
+    			dispose = listen(input, "click", /*click_handler_1*/ ctx[47]);
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*facets*/ 16384 && input_data_tags_value !== (input_data_tags_value = /*tag*/ ctx[47].facet)) {
+    			if (dirty[0] & /*facets*/ 65536 && input_data_tags_value !== (input_data_tags_value = /*tag*/ ctx[52].facet)) {
     				attr(input, "data-tags", input_data_tags_value);
     			}
 
-    			if (dirty[0] & /*facets, results*/ 17408 && input_disabled_value !== (input_disabled_value = !isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10]))) {
+    			if (dirty[0] & /*facets, results*/ 69632 && input_disabled_value !== (input_disabled_value = !isSidebarItemInResults("tags", /*tag*/ ctx[52].facet, /*results*/ ctx[12]))) {
     				input.disabled = input_disabled_value;
     			}
 
-    			if (dirty[0] & /*facets*/ 16384 && t_value !== (t_value = /*tag*/ ctx[47].facet + "")) set_data(t, t_value);
+    			if (dirty[0] & /*facets*/ 65536 && t_value !== (t_value = /*tag*/ ctx[52].facet + "")) set_data(t, t_value);
 
-    			if (dirty[0] & /*facets, results*/ 17408 && li_class_value !== (li_class_value = isSidebarItemInResults("tags", /*tag*/ ctx[47].facet, /*results*/ ctx[10])
+    			if (dirty[0] & /*facets, results*/ 69632 && li_class_value !== (li_class_value = isSidebarItemInResults("tags", /*tag*/ ctx[52].facet, /*results*/ ctx[12])
     			? ""
     			: "italic text-gray-700")) {
     				attr(li, "class", li_class_value);
@@ -1412,11 +2302,11 @@
     	};
     }
 
-    // (260:8) {#if results}
+    // (275:8) {#if results}
     function create_if_block_1(ctx) {
     	let div2;
     	let div0;
-    	let t0_value = /*results*/ ctx[10].length + "";
+    	let t0_value = /*results*/ ctx[12].length + "";
     	let t0;
     	let t1;
     	let span0;
@@ -1432,7 +2322,7 @@
     	let div3;
     	let current;
     	let dispose;
-    	let each_value = /*results*/ ctx[10];
+    	let each_value = /*results*/ ctx[12];
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -1450,11 +2340,11 @@
     			t0 = text(t0_value);
     			t1 = text(" matches for query ");
     			span0 = element("span");
-    			t2 = text(/*searchText*/ ctx[6]);
+    			t2 = text(/*searchText*/ ctx[8]);
     			t3 = space();
     			span1 = element("span");
     			t4 = text("(");
-    			t5 = text(/*filteredRecordCount*/ ctx[12]);
+    			t5 = text(/*filteredRecordCount*/ ctx[14]);
     			t6 = text(" filtered)");
     			t7 = space();
     			div1 = element("div");
@@ -1495,15 +2385,15 @@
 
     			current = true;
     			if (remount) dispose();
-    			dispose = listen(div1, "click", /*returnToSearch*/ ctx[26]);
+    			dispose = listen(div1, "click", /*returnToSearch*/ ctx[29]);
     		},
     		p(ctx, dirty) {
-    			if ((!current || dirty[0] & /*results*/ 1024) && t0_value !== (t0_value = /*results*/ ctx[10].length + "")) set_data(t0, t0_value);
-    			if (!current || dirty[0] & /*searchText*/ 64) set_data(t2, /*searchText*/ ctx[6]);
-    			if (!current || dirty[0] & /*filteredRecordCount*/ 4096) set_data(t5, /*filteredRecordCount*/ ctx[12]);
+    			if ((!current || dirty[0] & /*results*/ 4096) && t0_value !== (t0_value = /*results*/ ctx[12].length + "")) set_data(t0, t0_value);
+    			if (!current || dirty[0] & /*searchText*/ 256) set_data(t2, /*searchText*/ ctx[8]);
+    			if (!current || dirty[0] & /*filteredRecordCount*/ 16384) set_data(t5, /*filteredRecordCount*/ ctx[14]);
 
-    			if (dirty[0] & /*results, filters*/ 3072) {
-    				each_value = /*results*/ ctx[10];
+    			if (dirty[0] & /*results, filters*/ 12288) {
+    				each_value = /*results*/ ctx[12];
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
@@ -1557,14 +2447,14 @@
     	};
     }
 
-    // (266:12) {#each results as record}
+    // (281:12) {#each results as record}
     function create_each_block(ctx) {
     	let current;
 
     	const resourcedetail = new ResourceDetail({
     			props: {
-    				record: /*record*/ ctx[44],
-    				filters: /*filters*/ ctx[11]
+    				record: /*record*/ ctx[49],
+    				filters: /*filters*/ ctx[13]
     			}
     		});
 
@@ -1578,8 +2468,8 @@
     		},
     		p(ctx, dirty) {
     			const resourcedetail_changes = {};
-    			if (dirty[0] & /*results*/ 1024) resourcedetail_changes.record = /*record*/ ctx[44];
-    			if (dirty[0] & /*filters*/ 2048) resourcedetail_changes.filters = /*filters*/ ctx[11];
+    			if (dirty[0] & /*results*/ 4096) resourcedetail_changes.record = /*record*/ ctx[49];
+    			if (dirty[0] & /*filters*/ 8192) resourcedetail_changes.filters = /*filters*/ ctx[13];
     			resourcedetail.$set(resourcedetail_changes);
     		},
     		i(local) {
@@ -1598,11 +2488,11 @@
     }
 
     function create_fragment$2(ctx) {
-    	let div52;
-    	let div5;
+    	let div60;
+    	let div6;
     	let div0;
     	let t3;
-    	let div4;
+    	let div5;
     	let div1;
     	let t4;
     	let div1_class_value;
@@ -1615,66 +2505,80 @@
     	let t8;
     	let div3_class_value;
     	let t9;
+    	let div4;
+    	let t10;
+    	let div4_class_value;
+    	let t11;
     	let current_block_type_index;
     	let if_block;
-    	let t10;
-    	let div6;
-    	let div6_class_value;
-    	let t11;
-    	let div17;
-    	let div16;
-    	let div9;
+    	let t12;
     	let div7;
+    	let div7_class_value;
     	let t13;
-    	let div8;
-    	let t14;
-    	let div15;
-    	let div14;
+    	let div18;
+    	let div17;
     	let div10;
-    	let t18;
-    	let div12;
-    	let textarea;
-    	let t19;
+    	let div8;
+    	let t15;
+    	let div9;
+    	let t16;
+    	let div16;
+    	let div15;
     	let div11;
     	let t20;
-    	let div11_class_value;
-    	let t21;
     	let div13;
-    	let div17_class_value;
-    	let t25;
-    	let div26;
-    	let div25;
-    	let div20;
-    	let div18;
+    	let textarea;
+    	let t21;
+    	let div12;
+    	let t22;
+    	let div12_class_value;
+    	let t23;
+    	let div14;
+    	let div18_class_value;
     	let t27;
-    	let div19;
-    	let t28;
-    	let div24;
+    	let div27;
+    	let div26;
     	let div21;
+    	let div19;
+    	let t29;
+    	let div20;
     	let t30;
+    	let div25;
     	let div22;
-    	let a2;
     	let t32;
     	let div23;
-    	let t33;
-    	let div26_class_value;
+    	let a2;
     	let t34;
-    	let div51;
-    	let div50;
-    	let div29;
-    	let div27;
+    	let div24;
+    	let t35;
+    	let div27_class_value;
     	let t36;
+    	let div34;
+    	let div33;
+    	let div30;
     	let div28;
-    	let t37;
-    	let div49;
-    	let div51_class_value;
+    	let t38;
+    	let div29;
+    	let t39;
+    	let div32;
+    	let div34_class_value;
+    	let t43;
+    	let div59;
+    	let div58;
+    	let div37;
+    	let div35;
+    	let t45;
+    	let div36;
+    	let t46;
+    	let div57;
+    	let div59_class_value;
     	let current;
     	let dispose;
     	const if_block_creators = [create_if_block$1, create_else_block];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
-    		if (!/*resultsMode*/ ctx[9]) return 0;
+    		if (!/*resultsMode*/ ctx[11]) return 0;
     		return 1;
     	}
 
@@ -1683,47 +2587,54 @@
 
     	const icon0 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[16],
+    				icon: /*closeModalIcon*/ ctx[18],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	const icon1 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[16],
+    				icon: /*closeModalIcon*/ ctx[18],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	const icon2 = new Icon({
     			props: {
-    				icon: /*envelopeIcon*/ ctx[18],
+    				icon: /*envelopeIcon*/ ctx[20],
     				class: "fill-current text-gray-800 align-middle mr-2"
     			}
     		});
 
     	const icon3 = new Icon({
     			props: {
-    				icon: /*phoneIcon*/ ctx[17],
+    				icon: /*phoneIcon*/ ctx[19],
     				class: "fill-current text-gray-800 align-middle mr-2"
     			}
     		});
 
     	const icon4 = new Icon({
     			props: {
-    				icon: /*closeModalIcon*/ ctx[16],
+    				icon: /*closeModalIcon*/ ctx[18],
+    				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
+    			}
+    		});
+
+    	const icon5 = new Icon({
+    			props: {
+    				icon: /*closeModalIcon*/ ctx[18],
     				class: "fill-current text-gray-800 text-2xl align-middle cursor-pointer"
     			}
     		});
 
     	return {
     		c() {
-    			div52 = element("div");
-    			div5 = element("div");
+    			div60 = element("div");
+    			div6 = element("div");
     			div0 = element("div");
-    			div0.innerHTML = `<span class="cofrs-color svelte-eekrjz">COFRS-19</span>  <span class="text-white pl-1">Search</span>`;
+    			div0.innerHTML = `<span class="cofrs-color svelte-z70bto">COFRS-19</span>  <span class="text-white pl-1">Search</span>`;
     			t3 = space();
-    			div4 = element("div");
+    			div5 = element("div");
     			div1 = element("div");
     			t4 = text("About");
     			t5 = space();
@@ -1733,78 +2644,98 @@
     			div3 = element("div");
     			t8 = text("Add Your Resources");
     			t9 = space();
-    			if_block.c();
-    			t10 = space();
-    			div6 = element("div");
+    			div4 = element("div");
+    			t10 = text("Open Source");
     			t11 = space();
-    			div17 = element("div");
-    			div16 = element("div");
-    			div9 = element("div");
+    			if_block.c();
+    			t12 = space();
     			div7 = element("div");
-    			div7.textContent = "Add Your Resources";
     			t13 = space();
-    			div8 = element("div");
-    			create_component(icon0.$$.fragment);
-    			t14 = space();
-    			div15 = element("div");
-    			div14 = element("div");
+    			div18 = element("div");
+    			div17 = element("div");
     			div10 = element("div");
+    			div8 = element("div");
+    			div8.textContent = "Add Your Resources";
+    			t15 = space();
+    			div9 = element("div");
+    			create_component(icon0.$$.fragment);
+    			t16 = space();
+    			div16 = element("div");
+    			div15 = element("div");
+    			div11 = element("div");
 
-    			div10.innerHTML = `
+    			div11.innerHTML = `
               We welcome contribution of additional resources into the index. If you have a single resource (website, online document, etc.)
               you can share it with us via an
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0rqsWtha0D25mNM9dS_NnYFrzZBPkq4m8wK8K4icwAjyOQ/viewform" class="border-b border-dotted border-gray-800">online form (preferred)</a>
               or you can provide the address (from your browser&#39;s address bar), a title, and (optionally) your contact information so we can reach you with any questions:
           `;
 
-    			t18 = space();
-    			div12 = element("div");
-    			textarea = element("textarea");
-    			t19 = space();
-    			div11 = element("div");
-    			t20 = text("Submit");
-    			t21 = space();
+    			t20 = space();
     			div13 = element("div");
+    			textarea = element("textarea");
+    			t21 = space();
+    			div12 = element("div");
+    			t22 = text("Submit");
+    			t23 = space();
+    			div14 = element("div");
 
-    			div13.innerHTML = `
+    			div14.innerHTML = `
               Feel free to email lists of multiple documents/resources to <a href="mailto:info@policefoundation.org" class="border-b border-dotted border-gray-800">info@policefoundation.org</a>.
           `;
 
-    			t25 = space();
-    			div26 = element("div");
-    			div25 = element("div");
-    			div20 = element("div");
-    			div18 = element("div");
-    			div18.textContent = "Contact Us";
     			t27 = space();
-    			div19 = element("div");
-    			create_component(icon1.$$.fragment);
-    			t28 = space();
-    			div24 = element("div");
+    			div27 = element("div");
+    			div26 = element("div");
     			div21 = element("div");
-    			div21.textContent = "National Police Foundation";
+    			div19 = element("div");
+    			div19.textContent = "Contact Us";
+    			t29 = space();
+    			div20 = element("div");
+    			create_component(icon1.$$.fragment);
     			t30 = space();
+    			div25 = element("div");
     			div22 = element("div");
+    			div22.textContent = "National Police Foundation";
+    			t32 = space();
+    			div23 = element("div");
     			create_component(icon2.$$.fragment);
     			a2 = element("a");
     			a2.textContent = "info@policefoundation.org";
-    			t32 = space();
-    			div23 = element("div");
-    			create_component(icon3.$$.fragment);
-    			t33 = text("202-833-1460");
     			t34 = space();
-    			div51 = element("div");
-    			div50 = element("div");
-    			div29 = element("div");
-    			div27 = element("div");
-    			div27.textContent = "About this Site";
+    			div24 = element("div");
+    			create_component(icon3.$$.fragment);
+    			t35 = text("202-833-1460");
     			t36 = space();
+    			div34 = element("div");
+    			div33 = element("div");
+    			div30 = element("div");
     			div28 = element("div");
+    			div28.textContent = "Open Source Software";
+    			t38 = space();
+    			div29 = element("div");
     			create_component(icon4.$$.fragment);
-    			t37 = space();
-    			div49 = element("div");
+    			t39 = space();
+    			div32 = element("div");
 
-    			div49.innerHTML = `<div class=" mt-8 flex flex-col"><div class="font-semibold mb-1">Background</div> 
+    			div32.innerHTML = `<div class="mb-1">
+          COFRS-19 is licensed to the public under the Apache Software License, version 2.0. We welcome technical contributions from the community
+          via <a class="border-b border-dotted border-gray-800" href="https://github.com/PoliceFoundation/COFRS-19">GitHub</a>.
+          </div>`;
+
+    			t43 = space();
+    			div59 = element("div");
+    			div58 = element("div");
+    			div37 = element("div");
+    			div35 = element("div");
+    			div35.textContent = "About this Site";
+    			t45 = space();
+    			div36 = element("div");
+    			create_component(icon5.$$.fragment);
+    			t46 = space();
+    			div57 = element("div");
+
+    			div57.innerHTML = `<div class=" mt-8 flex flex-col"><div class="font-semibold mb-1">Background</div> 
           <div class="mb-1">
           COFRS-19, the First Responder Research &amp; Practice Reference Search project was created to support the needs of the first responder community by
           building a search capability that allows a user to access content from any organization, site or reference materials without having to conduct
@@ -1814,7 +2745,7 @@
           research needs of first responder agencies and because it can identify and return content from across a variety of first responder organization
           websites and data repositories, reducing the need for first responder organizations to have to conduct searches across multiple organizations
           and associations. Features include a powerful search tool with customizable search options and terms, capability to embed the search tool into
-          third-party sites via an API and for the community to share content using a Slack integration.
+          third-party sites via an API.
           </div> 
           <div class="font-semibold mb-1 mt-1">CORD-19 Dataset Usage</div> 
           <div class="mb-1">
@@ -1847,143 +2778,170 @@
           limitations under the License.</div></div>`;
 
     			attr(div0, "class", "ml-12 text-2xl font-bold");
-    			attr(div1, "class", div1_class_value = "cursor-pointer " + (/*aboutHover*/ ctx[1] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz");
-    			attr(div2, "class", div2_class_value = "cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz");
-    			attr(div3, "class", div3_class_value = "cursor-pointer " + (/*addResourcesHover*/ ctx[4] ? "cofrs-color" : "") + " svelte-eekrjz");
-    			attr(div4, "class", "mr-12 text-xl text-white font-bold flex flex-row");
-    			attr(div5, "class", "flex items-center justify-between h-20 border-b-4 nav-bottom-color svelte-eekrjz");
+    			attr(div1, "class", div1_class_value = "nav-border-color border-r cursor-pointer " + (/*aboutHover*/ ctx[2] ? "cofrs-color" : "") + " mr-2 pr-2" + " svelte-z70bto");
+    			attr(div2, "class", div2_class_value = "nav-border-color border-r cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " mr-2 pr-2" + " svelte-z70bto");
+    			attr(div3, "class", div3_class_value = "nav-border-color border-r cursor-pointer " + (/*addResourcesHover*/ ctx[4] ? "cofrs-color" : "") + " mr-2 pr-2" + " svelte-z70bto");
+    			attr(div4, "class", div4_class_value = "cursor-pointer " + (/*openSourceHover*/ ctx[6] ? "cofrs-color" : "") + " svelte-z70bto");
+    			attr(div5, "class", "mr-12 text-lg text-white font-bold flex flex-row");
+    			attr(div6, "class", "flex items-center justify-between h-20 border-b-4 nav-border-color svelte-z70bto");
 
-    			attr(div6, "class", div6_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[2] | /*aboutModal*/ ctx[3] | /*addResourcesModal*/ ctx[5]
+    			attr(div7, "class", div7_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[1] | /*aboutModal*/ ctx[3] | /*addResourcesModal*/ ctx[5] | /*openSourceModal*/ ctx[7]
     			? "visible"
     			: "invisible"));
 
-    			attr(div7, "class", "text-xl font-semibold");
-    			attr(div9, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
-    			attr(div10, "class", "mb-2");
-    			attr(textarea, "class", "h-40 w-full mb-2 border border-gray-800 p-1 ta-no-resize svelte-eekrjz");
-    			attr(div11, "class", div11_class_value = "border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none " + (/*feedbackContent*/ ctx[13] ? "hover:bg-gray-500" : ""));
-    			attr(div12, "class", "mb-4 flex flex-col items-center justify-center");
-    			attr(div13, "class", "mb-1");
-    			attr(div14, "class", "mt-8 flex flex-col");
-    			attr(div15, "class", "app-height-about svelte-eekrjz");
-    			attr(div16, "class", "mt-48 border-2 border-gray-600 w-1/2 h-100 p-4 align-middle bg-gray-100");
-    			attr(div17, "class", div17_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*addResourcesModal*/ ctx[5] ? "visible" : "invisible"));
-    			attr(div18, "class", "text-xl font-semibold");
-    			attr(div20, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
-    			attr(div21, "class", "font-semibold mb-1");
+    			attr(div8, "class", "text-xl font-semibold");
+    			attr(div10, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div11, "class", "mb-2");
+    			attr(textarea, "class", "h-40 w-full mb-2 border border-gray-800 p-1 ta-no-resize svelte-z70bto");
+    			attr(div12, "class", div12_class_value = "border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none " + (/*feedbackContent*/ ctx[15] ? "hover:bg-gray-500" : ""));
+    			attr(div13, "class", "mb-4 flex flex-col items-center justify-center");
+    			attr(div14, "class", "mb-1");
+    			attr(div15, "class", "mt-8 flex flex-col");
+    			attr(div16, "class", "app-height-about svelte-z70bto");
+    			attr(div17, "class", "mt-48 border-2 border-gray-600 w-1/2 h-100 p-4 align-middle bg-gray-100");
+    			attr(div18, "class", div18_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*addResourcesModal*/ ctx[5] ? "visible" : "invisible"));
+    			attr(div19, "class", "text-xl font-semibold");
+    			attr(div21, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div22, "class", "font-semibold mb-1");
     			attr(a2, "href", "mailto:info@policefoundation.org");
     			attr(a2, "class", "border-b border-dotted border-gray-800");
-    			attr(div22, "class", "mb-px");
-    			attr(div23, "class", "align-middle items-center");
-    			attr(div24, "class", "mt-8 flex flex-col");
-    			attr(div25, "class", "mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100");
-    			attr(div26, "class", div26_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[2] ? "visible" : "invisible"));
-    			attr(div27, "class", "text-xl font-semibold");
-    			attr(div29, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
-    			attr(div49, "class", "app-height-about overflow-y-auto svelte-eekrjz");
-    			attr(div50, "class", "mt-48 border-2 border-gray-600 w-3/4 h-100 p-4 align-middle bg-gray-100");
-    			attr(div51, "class", div51_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"));
-    			attr(div52, "class", "h-full body-background pb-8 body-font relative svelte-eekrjz");
+    			attr(div23, "class", "mb-px");
+    			attr(div24, "class", "align-middle items-center");
+    			attr(div25, "class", "mt-8 flex flex-col");
+    			attr(div26, "class", "mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100");
+    			attr(div27, "class", div27_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[1] ? "visible" : "invisible"));
+    			attr(div28, "class", "text-xl font-semibold");
+    			attr(div30, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div32, "class", "mt-8 flex flex-col");
+    			attr(div33, "class", "mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100");
+    			attr(div34, "class", div34_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*openSourceModal*/ ctx[7] ? "visible" : "invisible"));
+    			attr(div35, "class", "text-xl font-semibold");
+    			attr(div37, "class", "w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2");
+    			attr(div57, "class", "app-height-about overflow-y-auto svelte-z70bto");
+    			attr(div58, "class", "mt-48 border-2 border-gray-600 w-3/4 h-100 p-4 align-middle bg-gray-100");
+    			attr(div59, "class", div59_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"));
+    			attr(div60, "class", "h-full body-background pb-8 body-font relative svelte-z70bto");
     		},
     		m(target, anchor, remount) {
-    			insert(target, div52, anchor);
-    			append(div52, div5);
-    			append(div5, div0);
-    			append(div5, t3);
-    			append(div5, div4);
-    			append(div4, div1);
+    			insert(target, div60, anchor);
+    			append(div60, div6);
+    			append(div6, div0);
+    			append(div6, t3);
+    			append(div6, div5);
+    			append(div5, div1);
     			append(div1, t4);
-    			append(div4, t5);
-    			append(div4, div2);
+    			append(div5, t5);
+    			append(div5, div2);
     			append(div2, t6);
-    			append(div4, t7);
-    			append(div4, div3);
+    			append(div5, t7);
+    			append(div5, div3);
     			append(div3, t8);
-    			append(div52, t9);
-    			if_blocks[current_block_type_index].m(div52, null);
-    			append(div52, t10);
-    			append(div52, div6);
-    			append(div52, t11);
-    			append(div52, div17);
+    			append(div5, t9);
+    			append(div5, div4);
+    			append(div4, t10);
+    			append(div60, t11);
+    			if_blocks[current_block_type_index].m(div60, null);
+    			append(div60, t12);
+    			append(div60, div7);
+    			append(div60, t13);
+    			append(div60, div18);
+    			append(div18, div17);
+    			append(div17, div10);
+    			append(div10, div8);
+    			append(div10, t15);
+    			append(div10, div9);
+    			mount_component(icon0, div9, null);
+    			append(div17, t16);
     			append(div17, div16);
-    			append(div16, div9);
-    			append(div9, div7);
-    			append(div9, t13);
-    			append(div9, div8);
-    			mount_component(icon0, div8, null);
-    			append(div16, t14);
     			append(div16, div15);
+    			append(div15, div11);
+    			append(div15, t20);
+    			append(div15, div13);
+    			append(div13, textarea);
+    			set_input_value(textarea, /*feedbackContent*/ ctx[15]);
+    			append(div13, t21);
+    			append(div13, div12);
+    			append(div12, t22);
+    			append(div15, t23);
     			append(div15, div14);
-    			append(div14, div10);
-    			append(div14, t18);
-    			append(div14, div12);
-    			append(div12, textarea);
-    			set_input_value(textarea, /*feedbackContent*/ ctx[13]);
-    			append(div12, t19);
-    			append(div12, div11);
-    			append(div11, t20);
-    			append(div14, t21);
-    			append(div14, div13);
-    			append(div52, t25);
-    			append(div52, div26);
+    			append(div60, t27);
+    			append(div60, div27);
+    			append(div27, div26);
+    			append(div26, div21);
+    			append(div21, div19);
+    			append(div21, t29);
+    			append(div21, div20);
+    			mount_component(icon1, div20, null);
+    			append(div26, t30);
     			append(div26, div25);
-    			append(div25, div20);
-    			append(div20, div18);
-    			append(div20, t27);
-    			append(div20, div19);
-    			mount_component(icon1, div19, null);
-    			append(div25, t28);
+    			append(div25, div22);
+    			append(div25, t32);
+    			append(div25, div23);
+    			mount_component(icon2, div23, null);
+    			append(div23, a2);
+    			append(div25, t34);
     			append(div25, div24);
-    			append(div24, div21);
-    			append(div24, t30);
-    			append(div24, div22);
-    			mount_component(icon2, div22, null);
-    			append(div22, a2);
-    			append(div24, t32);
-    			append(div24, div23);
-    			mount_component(icon3, div23, null);
-    			append(div23, t33);
-    			append(div52, t34);
-    			append(div52, div51);
-    			append(div51, div50);
-    			append(div50, div29);
-    			append(div29, div27);
-    			append(div29, t36);
-    			append(div29, div28);
-    			mount_component(icon4, div28, null);
-    			append(div50, t37);
-    			append(div50, div49);
+    			mount_component(icon3, div24, null);
+    			append(div24, t35);
+    			append(div60, t36);
+    			append(div60, div34);
+    			append(div34, div33);
+    			append(div33, div30);
+    			append(div30, div28);
+    			append(div30, t38);
+    			append(div30, div29);
+    			mount_component(icon4, div29, null);
+    			append(div33, t39);
+    			append(div33, div32);
+    			append(div60, t43);
+    			append(div60, div59);
+    			append(div59, div58);
+    			append(div58, div37);
+    			append(div37, div35);
+    			append(div37, t45);
+    			append(div37, div36);
+    			mount_component(icon5, div36, null);
+    			append(div58, t46);
+    			append(div58, div57);
     			current = true;
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(div1, "click", /*showAboutModal*/ ctx[22]),
-    				listen(div1, "mouseover", /*mouseover_handler*/ ctx[32]),
-    				listen(div1, "mouseout", /*mouseout_handler*/ ctx[33]),
-    				listen(div2, "click", /*showContactUsModal*/ ctx[23]),
-    				listen(div2, "mouseover", /*mouseover_handler_1*/ ctx[34]),
-    				listen(div2, "mouseout", /*mouseout_handler_1*/ ctx[35]),
-    				listen(div3, "click", /*showAddResourcesModal*/ ctx[24]),
-    				listen(div3, "mouseover", /*mouseover_handler_2*/ ctx[36]),
-    				listen(div3, "mouseout", /*mouseout_handler_2*/ ctx[37]),
-    				listen(div8, "click", /*hideModal*/ ctx[21]),
-    				listen(textarea, "input", /*textarea_input_handler*/ ctx[43]),
-    				listen(div11, "click", /*postFeedback*/ ctx[27]),
-    				listen(div19, "click", /*hideModal*/ ctx[21]),
-    				listen(div28, "click", /*hideModal*/ ctx[21])
+    				listen(div1, "click", /*showAboutModal*/ ctx[24]),
+    				listen(div1, "mouseover", /*mouseover_handler*/ ctx[35]),
+    				listen(div1, "mouseout", /*mouseout_handler*/ ctx[36]),
+    				listen(div2, "click", /*showContactUsModal*/ ctx[25]),
+    				listen(div2, "mouseover", /*mouseover_handler_1*/ ctx[37]),
+    				listen(div2, "mouseout", /*mouseout_handler_1*/ ctx[38]),
+    				listen(div3, "click", /*showAddResourcesModal*/ ctx[26]),
+    				listen(div3, "mouseover", /*mouseover_handler_2*/ ctx[39]),
+    				listen(div3, "mouseout", /*mouseout_handler_2*/ ctx[40]),
+    				listen(div4, "click", /*showOpenSourceModal*/ ctx[27]),
+    				listen(div4, "mouseover", /*mouseover_handler_3*/ ctx[41]),
+    				listen(div4, "mouseout", /*mouseout_handler_3*/ ctx[42]),
+    				listen(div9, "click", /*hideModal*/ ctx[23]),
+    				listen(textarea, "input", /*textarea_input_handler*/ ctx[48]),
+    				listen(div12, "click", /*postFeedback*/ ctx[30]),
+    				listen(div20, "click", /*hideModal*/ ctx[23]),
+    				listen(div29, "click", /*hideModal*/ ctx[23]),
+    				listen(div36, "click", /*hideModal*/ ctx[23])
     			];
     		},
     		p(ctx, dirty) {
-    			if (!current || dirty[0] & /*aboutHover*/ 2 && div1_class_value !== (div1_class_value = "cursor-pointer " + (/*aboutHover*/ ctx[1] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz")) {
+    			if (!current || dirty[0] & /*aboutHover*/ 4 && div1_class_value !== (div1_class_value = "nav-border-color border-r cursor-pointer " + (/*aboutHover*/ ctx[2] ? "cofrs-color" : "") + " mr-2 pr-2" + " svelte-z70bto")) {
     				attr(div1, "class", div1_class_value);
     			}
 
-    			if (!current || dirty[0] & /*contactUsHover*/ 1 && div2_class_value !== (div2_class_value = "cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " mr-4" + " svelte-eekrjz")) {
+    			if (!current || dirty[0] & /*contactUsHover*/ 1 && div2_class_value !== (div2_class_value = "nav-border-color border-r cursor-pointer " + (/*contactUsHover*/ ctx[0] ? "cofrs-color" : "") + " mr-2 pr-2" + " svelte-z70bto")) {
     				attr(div2, "class", div2_class_value);
     			}
 
-    			if (!current || dirty[0] & /*addResourcesHover*/ 16 && div3_class_value !== (div3_class_value = "cursor-pointer " + (/*addResourcesHover*/ ctx[4] ? "cofrs-color" : "") + " svelte-eekrjz")) {
+    			if (!current || dirty[0] & /*addResourcesHover*/ 16 && div3_class_value !== (div3_class_value = "nav-border-color border-r cursor-pointer " + (/*addResourcesHover*/ ctx[4] ? "cofrs-color" : "") + " mr-2 pr-2" + " svelte-z70bto")) {
     				attr(div3, "class", div3_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*openSourceHover*/ 64 && div4_class_value !== (div4_class_value = "cursor-pointer " + (/*openSourceHover*/ ctx[6] ? "cofrs-color" : "") + " svelte-z70bto")) {
+    				attr(div4, "class", div4_class_value);
     			}
 
     			let previous_block_index = current_block_type_index;
@@ -2007,33 +2965,37 @@
     				}
 
     				transition_in(if_block, 1);
-    				if_block.m(div52, t10);
+    				if_block.m(div60, t12);
     			}
 
-    			if (!current || dirty[0] & /*contactUsModal, aboutModal, addResourcesModal*/ 44 && div6_class_value !== (div6_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[2] | /*aboutModal*/ ctx[3] | /*addResourcesModal*/ ctx[5]
+    			if (!current || dirty[0] & /*contactUsModal, aboutModal, addResourcesModal, openSourceModal*/ 170 && div7_class_value !== (div7_class_value = "absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col " + (/*contactUsModal*/ ctx[1] | /*aboutModal*/ ctx[3] | /*addResourcesModal*/ ctx[5] | /*openSourceModal*/ ctx[7]
     			? "visible"
     			: "invisible"))) {
-    				attr(div6, "class", div6_class_value);
+    				attr(div7, "class", div7_class_value);
     			}
 
-    			if (dirty[0] & /*feedbackContent*/ 8192) {
-    				set_input_value(textarea, /*feedbackContent*/ ctx[13]);
+    			if (dirty[0] & /*feedbackContent*/ 32768) {
+    				set_input_value(textarea, /*feedbackContent*/ ctx[15]);
     			}
 
-    			if (!current || dirty[0] & /*feedbackContent*/ 8192 && div11_class_value !== (div11_class_value = "border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none " + (/*feedbackContent*/ ctx[13] ? "hover:bg-gray-500" : ""))) {
-    				attr(div11, "class", div11_class_value);
+    			if (!current || dirty[0] & /*feedbackContent*/ 32768 && div12_class_value !== (div12_class_value = "border border-gray-800 bg-gray-300 w-20 py-2 text-center rounded cursor-default select-none " + (/*feedbackContent*/ ctx[15] ? "hover:bg-gray-500" : ""))) {
+    				attr(div12, "class", div12_class_value);
     			}
 
-    			if (!current || dirty[0] & /*addResourcesModal*/ 32 && div17_class_value !== (div17_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*addResourcesModal*/ ctx[5] ? "visible" : "invisible"))) {
-    				attr(div17, "class", div17_class_value);
+    			if (!current || dirty[0] & /*addResourcesModal*/ 32 && div18_class_value !== (div18_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*addResourcesModal*/ ctx[5] ? "visible" : "invisible"))) {
+    				attr(div18, "class", div18_class_value);
     			}
 
-    			if (!current || dirty[0] & /*contactUsModal*/ 4 && div26_class_value !== (div26_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[2] ? "visible" : "invisible"))) {
-    				attr(div26, "class", div26_class_value);
+    			if (!current || dirty[0] & /*contactUsModal*/ 2 && div27_class_value !== (div27_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*contactUsModal*/ ctx[1] ? "visible" : "invisible"))) {
+    				attr(div27, "class", div27_class_value);
     			}
 
-    			if (!current || dirty[0] & /*aboutModal*/ 8 && div51_class_value !== (div51_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"))) {
-    				attr(div51, "class", div51_class_value);
+    			if (!current || dirty[0] & /*openSourceModal*/ 128 && div34_class_value !== (div34_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*openSourceModal*/ ctx[7] ? "visible" : "invisible"))) {
+    				attr(div34, "class", div34_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*aboutModal*/ 8 && div59_class_value !== (div59_class_value = "absolute top-0 left-0 h-full w-full items-center flex flex-col " + (/*aboutModal*/ ctx[3] ? "visible" : "invisible"))) {
+    				attr(div59, "class", div59_class_value);
     			}
     		},
     		i(local) {
@@ -2044,6 +3006,7 @@
     			transition_in(icon2.$$.fragment, local);
     			transition_in(icon3.$$.fragment, local);
     			transition_in(icon4.$$.fragment, local);
+    			transition_in(icon5.$$.fragment, local);
     			current = true;
     		},
     		o(local) {
@@ -2053,16 +3016,18 @@
     			transition_out(icon2.$$.fragment, local);
     			transition_out(icon3.$$.fragment, local);
     			transition_out(icon4.$$.fragment, local);
+    			transition_out(icon5.$$.fragment, local);
     			current = false;
     		},
     		d(detaching) {
-    			if (detaching) detach(div52);
+    			if (detaching) detach(div60);
     			if_blocks[current_block_type_index].d();
     			destroy_component(icon0);
     			destroy_component(icon1);
     			destroy_component(icon2);
     			destroy_component(icon3);
     			destroy_component(icon4);
+    			destroy_component(icon5);
     			run_all(dispose);
     		}
     	};
@@ -2089,12 +3054,17 @@
     	let closeModalIcon = faTimesCircle_2;
     	let phoneIcon = faPhone_2;
     	let envelopeIcon = faEnvelope_2;
+
+    	// nav bar state
     	let contactUsHover = false;
-    	let aboutHover = false;
+
     	let contactUsModal = false;
+    	let aboutHover = false;
     	let aboutModal = false;
     	let addResourcesHover = false;
     	let addResourcesModal = false;
+    	let openSourceHover = false;
+    	let openSourceModal = false;
     	let searchText, pfSource = true, cord19Source = true;
     	let resultsMode = false;
     	let results;
@@ -2104,9 +3074,9 @@
     	let facets;
 
     	function init() {
-    		$$invalidate(9, resultsMode = false);
-    		$$invalidate(10, results = null);
-    		$$invalidate(11, filters = {});
+    		$$invalidate(11, resultsMode = false);
+    		$$invalidate(12, results = null);
+    		$$invalidate(13, filters = {});
     	}
 
     	window.onpopstate = event => {
@@ -2123,22 +3093,22 @@
 
     	function search() {
     		if (searchText) {
-    			$$invalidate(9, resultsMode = true);
+    			$$invalidate(11, resultsMode = true);
     			history.pushState("home", "");
 
-    			fetchSearch(searchText, pfSource, cord19Source).then((resolve, reject) => {
-    				$$invalidate(10, results = resolve);
+    			fetchSearch().then((resolve, reject) => {
+    				$$invalidate(12, results = resolve);
     				history.pushState(results, "");
     			});
     		}
     	}
 
     	onMount(() => {
-    		$$invalidate(10, results = !history.state || history.state === "home" || history.state.status
+    		$$invalidate(12, results = !history.state || history.state === "home" || history.state.status
     		? null
     		: history.state);
 
-    		$$invalidate(9, resultsMode = results !== null);
+    		$$invalidate(11, resultsMode = results !== null);
     	});
 
     	function searchKeyup(e) {
@@ -2153,8 +3123,9 @@
 
     	function hideModal() {
     		$$invalidate(3, aboutModal = false);
-    		$$invalidate(2, contactUsModal = false);
+    		$$invalidate(1, contactUsModal = false);
     		$$invalidate(5, addResourcesModal = false);
+    		$$invalidate(7, openSourceModal = false);
     		document.removeEventListener("keyup", modalEscapeListener);
     	}
 
@@ -2164,13 +3135,18 @@
     	}
 
     	function showContactUsModal() {
-    		$$invalidate(2, contactUsModal = true);
+    		$$invalidate(1, contactUsModal = true);
     		showModal();
     	}
 
     	function showAddResourcesModal() {
     		$$invalidate(5, addResourcesModal = true);
-    		$$invalidate(13, feedbackContent = null);
+    		$$invalidate(15, feedbackContent = null);
+    		showModal();
+    	}
+
+    	function showOpenSourceModal() {
+    		$$invalidate(7, openSourceModal = true);
     		showModal();
     	}
 
@@ -2183,8 +3159,8 @@
     			}
     		});
 
-    		$$invalidate(11, filters[sidebarItem] = newItems, filters);
-    		$$invalidate(11, filters);
+    		$$invalidate(13, filters[sidebarItem] = newItems, filters);
+    		$$invalidate(13, filters);
     	}
 
     	function returnToSearch() {
@@ -2223,29 +3199,31 @@
     	}
 
     	getFacets().then((resolve, reject) => {
-    		$$invalidate(14, facets = resolve);
+    		$$invalidate(16, facets = resolve);
     	});
 
-    	const mouseover_handler = () => $$invalidate(1, aboutHover = true);
-    	const mouseout_handler = () => $$invalidate(1, aboutHover = false);
+    	const mouseover_handler = () => $$invalidate(2, aboutHover = true);
+    	const mouseout_handler = () => $$invalidate(2, aboutHover = false);
     	const mouseover_handler_1 = () => $$invalidate(0, contactUsHover = true);
     	const mouseout_handler_1 = () => $$invalidate(0, contactUsHover = false);
     	const mouseover_handler_2 = () => $$invalidate(4, addResourcesHover = true);
     	const mouseout_handler_2 = () => $$invalidate(4, addResourcesHover = false);
+    	const mouseover_handler_3 = () => $$invalidate(6, openSourceHover = true);
+    	const mouseout_handler_3 = () => $$invalidate(6, openSourceHover = false);
 
     	function input0_input_handler() {
     		searchText = this.value;
-    		$$invalidate(6, searchText);
+    		$$invalidate(8, searchText);
     	}
 
     	function input1_change_handler() {
     		pfSource = this.checked;
-    		$$invalidate(7, pfSource);
+    		$$invalidate(9, pfSource);
     	}
 
     	function input2_change_handler() {
     		cord19Source = this.checked;
-    		$$invalidate(8, cord19Source);
+    		$$invalidate(10, cord19Source);
     	}
 
     	const click_handler = () => filter("purpose");
@@ -2253,22 +3231,24 @@
 
     	function textarea_input_handler() {
     		feedbackContent = this.value;
-    		$$invalidate(13, feedbackContent);
+    		$$invalidate(15, feedbackContent);
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[0] & /*filters*/ 2048) {
-    			 $$invalidate(12, filteredRecordCount = getFilteredRecordCount(filters));
+    		if ($$self.$$.dirty[0] & /*filters*/ 8192) {
+    			 $$invalidate(14, filteredRecordCount = getFilteredRecordCount(filters));
     		}
     	};
 
     	return [
     		contactUsHover,
-    		aboutHover,
     		contactUsModal,
+    		aboutHover,
     		aboutModal,
     		addResourcesHover,
     		addResourcesModal,
+    		openSourceHover,
+    		openSourceModal,
     		searchText,
     		pfSource,
     		cord19Source,
@@ -2288,6 +3268,7 @@
     		showAboutModal,
     		showContactUsModal,
     		showAddResourcesModal,
+    		showOpenSourceModal,
     		filter,
     		returnToSearch,
     		postFeedback,
@@ -2301,6 +3282,8 @@
     		mouseout_handler_1,
     		mouseover_handler_2,
     		mouseout_handler_2,
+    		mouseover_handler_3,
+    		mouseout_handler_3,
     		input0_input_handler,
     		input1_change_handler,
     		input2_change_handler,
@@ -2313,7 +3296,7 @@
     class App extends SvelteComponent {
     	constructor(options) {
     		super();
-    		if (!document_1.getElementById("svelte-eekrjz-style")) add_css$1();
+    		if (!document_1.getElementById("svelte-z70bto-style")) add_css$1();
     		init(this, options, instance$2, create_fragment$2, safe_not_equal, {}, [-1, -1]);
     	}
     }

@@ -1,16 +1,19 @@
+const LOCAL_MODE = true;
+
 export function fetchSearch(searchText, pfSource, cord19Source) {
-  //return fetchSearchDemo(searchText, pfSource, cord19Source);
-  return fetchSearchRemote(searchText, pfSource, cord19Source);
+  return LOCAL_MODE ?
+    fetchSearchDemo(searchText, pfSource, cord19Source) :
+    fetchSearchRemote(searchText, pfSource, cord19Source);
 }
 
 export async function getFacets() {
-  const facets = fetch("api/facets", { method: "GET" }).then(response => {
+  return LOCAL_MODE ?
+  Promise.resolve(DEMO_FACET_RESULT) :
+  fetch("api/facets", { method: "GET" }).then(response => {
     return response.json().then(resultsData => {
       return Promise.resolve(resultsData);
     });
   });
-  //const facets = Promise.resolve(DEMO_FACET_RESULT);
-  return facets;
 }
 
 export function fetchSearchRemote(searchText, pfSource, cord19Source) {

@@ -15,12 +15,17 @@
   let closeModalIcon = faTimesCircle;
   let phoneIcon = faPhone;
   let envelopeIcon = faEnvelope;
+
+  // nav bar state
   let contactUsHover = false;
-  let aboutHover = false;
   let contactUsModal = false;
+  let aboutHover = false;
   let aboutModal = false;
   let addResourcesHover = false;
   let addResourcesModal = false;
+  let openSourceHover = false;
+  let openSourceModal = false;
+
   let searchText, pfSource=true, cord19Source=true;
   let resultsMode = false;
   let results;
@@ -77,6 +82,7 @@
     aboutModal = false;
     contactUsModal = false;
     addResourcesModal = false;
+    openSourceModal = false;
     document.removeEventListener('keyup', modalEscapeListener);
   }
 
@@ -93,6 +99,11 @@
   function showAddResourcesModal() {
     addResourcesModal = true;
     feedbackContent = null;
+    showModal();
+  }
+
+  function showOpenSourceModal() {
+    openSourceModal = true;
     showModal();
   }
 
@@ -184,7 +195,7 @@
   .cofrs-color {
     color: rgb(255, 196, 60);
   }
-  .nav-bottom-color {
+  .nav-border-color {
     border-color: rgba(255,255,255,0.2)
   }
   .ta-no-resize {
@@ -193,21 +204,25 @@
 </style>
 
 <div class="h-full body-background pb-8 body-font relative">
-  <div class="flex items-center justify-between h-20 border-b-4 nav-bottom-color">
+  <div class="flex items-center justify-between h-20 border-b-4 nav-border-color">
     <div class="ml-12 text-2xl font-bold"><span class="cofrs-color">COFRS-19</span> <span class="text-white pl-1">Search</span></div>
-    <div class="mr-12 text-xl text-white font-bold flex flex-row">
-      <div class="cursor-pointer {aboutHover ? 'cofrs-color' : ''} mr-4"
+    <div class="mr-12 text-lg text-white font-bold flex flex-row">
+      <div class="nav-border-color border-r cursor-pointer {aboutHover ? 'cofrs-color' : ''} mr-2 pr-2"
         on:click="{showAboutModal}"
         on:mouseover="{() => aboutHover = true}"
         on:mouseout="{() => aboutHover = false}">About</div>
-      <div class="cursor-pointer {contactUsHover ? 'cofrs-color' : ''} mr-4"
+      <div class="nav-border-color border-r cursor-pointer {contactUsHover ? 'cofrs-color' : ''} mr-2 pr-2"
         on:click="{showContactUsModal}"
         on:mouseover="{() => contactUsHover = true}"
         on:mouseout="{() => contactUsHover = false}">Contact Us</div>
-      <div class="cursor-pointer {addResourcesHover ? 'cofrs-color' : ''}"
+      <div class="nav-border-color border-r cursor-pointer {addResourcesHover ? 'cofrs-color' : ''} mr-2 pr-2"
         on:click="{showAddResourcesModal}"
         on:mouseover="{() => addResourcesHover = true}"
         on:mouseout="{() => addResourcesHover = false}">Add Your Resources</div>
+      <div class="cursor-pointer {openSourceHover ? 'cofrs-color' : ''}"
+        on:click="{showOpenSourceModal}"
+        on:mouseover="{() => openSourceHover = true}"
+        on:mouseout="{() => openSourceHover = false}">Open Source</div>
     </div>
   </div>
   {#if !resultsMode}
@@ -273,7 +288,7 @@
     <div class="text-black w-full text-center bg-gray-400 py-4"><a href="http://www.policefoundation.org/copyright-information/">© 2020 National Police Foundation</a></div>
   </div>
   {/if}
-  <div class="absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col {contactUsModal|aboutModal|addResourcesModal ? 'visible' : 'invisible'}"></div>
+  <div class="absolute top-0 left-0 h-full w-full bg-gray-500 opacity-75 items-center flex flex-col {contactUsModal|aboutModal|addResourcesModal|openSourceModal ? 'visible' : 'invisible'}"></div>
   <div class="absolute top-0 left-0 h-full w-full items-center flex flex-col {addResourcesModal ? 'visible' : 'invisible'}">
     <div class="mt-48 border-2 border-gray-600 w-1/2 h-100 p-4 align-middle bg-gray-100">
       <div class="w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2">
@@ -312,6 +327,20 @@
       </div>
     </div>
   </div>
+  <div class="absolute top-0 left-0 h-full w-full items-center flex flex-col {openSourceModal ? 'visible' : 'invisible'}">
+    <div class="mt-48 border-2 border-gray-600 w-1/3 h-56 p-4 align-middle bg-gray-100">
+      <div class="w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2">
+        <div class="text-xl font-semibold">Open Source Software</div>
+        <div on:click="{hideModal}"><Icon icon={closeModalIcon} class="fill-current text-gray-800 text-2xl align-middle cursor-pointer"></Icon></div>
+      </div>
+      <div class="mt-8 flex flex-col">
+        <div class="mb-1">
+          COFRS-19 is licensed to the public under the Apache Software License, version 2.0. We welcome technical contributions from the community
+          via <a class="border-b border-dotted border-gray-800" href="https://github.com/PoliceFoundation/COFRS-19">GitHub</a>.
+          </div>
+      </div>
+    </div>
+  </div>
   <div class="absolute top-0 left-0 h-full w-full items-center flex flex-col {aboutModal ? 'visible' : 'invisible'}">
     <div class="mt-48 border-2 border-gray-600 w-3/4 h-100 p-4 align-middle bg-gray-100">
       <div class="w-full flex items-center justify-between text-gray-800 border-b border-gray-800 pb-2">
@@ -330,7 +359,7 @@
           research needs of first responder agencies and because it can identify and return content from across a variety of first responder organization
           websites and data repositories, reducing the need for first responder organizations to have to conduct searches across multiple organizations
           and associations. Features include a powerful search tool with customizable search options and terms, capability to embed the search tool into
-          third-party sites via an API and for the community to share content using a Slack integration.
+          third-party sites via an API.
           </div>
           <div class="font-semibold mb-1 mt-1">CORD-19 Dataset Usage</div>
           <div class="mb-1">
