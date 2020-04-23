@@ -1,4 +1,4 @@
-const LOCAL_MODE = true;
+const LOCAL_MODE = false;
 
 export function fetchSearch(searchText, pfSource, cord19Source) {
   return LOCAL_MODE ?

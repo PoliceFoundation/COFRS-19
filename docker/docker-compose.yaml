@@ -46,4 +46,13 @@ services:
       - type: volume
         source: apache-webroot
         target: "/usr/local/apache2/htdocs"
+  mongo:
+    image: mongo
+    container_name: mongo
+    networks:
+      - "covid-index"
+    volumes:
+      - type: bind
+        source: /opt/data/PoliceFoundation/cofrs-19/mongo
+        target: /data/db
     

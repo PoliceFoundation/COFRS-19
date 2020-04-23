@@ -2,10 +2,15 @@ package org.policefoundation.covididx.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.annotation.Backoff;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,11 +24,22 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class ApiController {
 	
-	private final Log log = LogFactory.getLog(ApiController.class);
 	private static final String CORD19_API_URL = "https://api.cord19.vespa.ai/search/";
+	private static final int MONGO_RETRY_ATTEMPTS = 3;
+	private static final int MONGO_RETRY_WAIT = 3000;
+	
+	private final Log log = LogFactory.getLog(ApiController.class);
 	
 	@Value("${solrApiUrl}")
 	private String solrApiUrl;
+	
+	private QueryLogRepository queryLogRepository;
+	
+	@Autowired
+	@Retryable(value={Exception.class}, maxAttempts=MONGO_RETRY_ATTEMPTS, backoff=@Backoff(value=MONGO_RETRY_WAIT))
+	public void setAnalysisRepository(QueryLogRepository queryLogRepository) {
+		this.queryLogRepository = queryLogRepository;
+	}
 	
 	@PostConstruct
 	public void init() throws Exception {
@@ -41,6 +57,13 @@ public class ApiController {
 		for (QueryResponse qr : solrResponses) {
 			responses.add(qr);
 		}
+		
+		Date now = new Date();
+		QueryLog ql = new QueryLog();
+		ql.setHits(responses.size());
+		ql.setQuery(queryRequest.query);
+		ql.setQueryTime(now);
+		queryLogRepository.insert(ql);
 		
 		for (QueryResponse qr : cord19Responses) {
 			responses.add(qr);
