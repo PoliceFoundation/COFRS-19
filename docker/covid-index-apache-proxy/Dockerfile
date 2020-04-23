@@ -20,7 +20,7 @@ RUN mkdir -p /usr/local/apache2/htdocs/.well-known && \
 
 RUN echo "<html><h2>health check page</h2></html>" > /usr/local/apache2/htdocs/health-check.html
 LABEL health-checker-monitor="true"
-HEALTHCHECK --interval=10s --timeout=3s --retries=1 CMD curl -f -k https://localhost/health-check.html
+#HEALTHCHECK --interval=10s --timeout=3s --retries=1 CMD curl -f -k https://localhost/health-check.html
 
 RUN sed -i "s/ServerName localhost/ServerName ${APACHE_HOST}/g" /usr/local/apache2/conf/extra/httpd-ssl.conf
 
