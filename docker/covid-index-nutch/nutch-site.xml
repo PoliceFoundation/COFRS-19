@@ -6,6 +6,6 @@
   </property>
   <property>
     <name>plugin.includes</name>
-    <value>protocol-http|urlfilter-(regex|validator)|parse-(html|tika)|index-(basic|anchor|more)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
+    <value>protocol-httpclient|urlfilter-(regex|validator)|parse-(html|tika)|index-(basic|anchor|more)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
   </property>
 </configuration>
