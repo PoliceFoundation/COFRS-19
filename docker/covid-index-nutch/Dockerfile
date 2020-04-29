@@ -18,6 +18,7 @@ COPY index-writers.xml /opt/apache-nutch-1.16/conf/
 COPY covid-crawl /opt/apache-nutch-1.16/bin
 
 RUN chmod ugo+x /opt/apache-nutch-1.16/bin/covid-crawl
+RUN echo "+." > /opt/apache-nutch-1.16/conf/regex-urlfilter.txt
 
 ENV PATH=$PATH:/opt/apache-nutch-1.16/bin
 

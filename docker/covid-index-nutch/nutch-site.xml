@@ -8,4 +8,8 @@
     <name>plugin.includes</name>
     <value>protocol-httpclient|urlfilter-(regex|validator)|parse-(html|tika)|index-(basic|anchor|more)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
   </property>
+  <property>
+    <name>parser.skip.truncated</name>
+    <value>false</value>
+  </property>
 </configuration>
