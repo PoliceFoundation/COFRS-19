@@ -384,6 +384,7 @@
     <field name="covid_description" type="string" stored="true" indexed="true"/>
     <field name="covid_purpose" type="string" stored="true" indexed="true"/>
     <field name="covid_tags" type="string" stored="true" indexed="true" multiValued="true"/>
+    <field name="covid_text" type="text_general" stored="false" indexed="true" multiValued="true"/>
 
  </fields>
  <uniqueKey>id</uniqueKey>
@@ -393,9 +394,11 @@
         or to add multiple fields to the same field for easier/faster searching.  -->
 
  <copyField source="content" dest="text"/>
- <copyField source="url" dest="text"/>
- <copyField source="title" dest="text"/>
- <copyField source="anchor" dest="text"/>
- <copyField source="author" dest="text"/>
+
+ <copyField source="covid_owner" dest="covid_text"/>
+ <copyField source="covid_description" dest="covid_text"/>
+ <copyField source="content" dest="covid_text"/>
+ <copyField source="author" dest="covid_text"/>
+ <copyField source="id" dest="covid_text"/>
 
 </schema>
