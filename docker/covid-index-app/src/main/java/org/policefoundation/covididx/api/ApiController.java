@@ -106,7 +106,7 @@ public class ApiController {
 		String q = queryRequest.query;
 		q = "\"" + q.replace('"', ' ').trim() + "\"";
 		q = "covid_text:" + q + " OR title:" + q;
-		String url = solrApiUrl + "select?q=" + q;
+		String url = solrApiUrl + "select?rows=10000&q=" + q;
 		log.info("Querying Solr url " + url);
 		RestTemplate restTemplate = new RestTemplate();
 		SolrQueryResponse solrResponse = restTemplate.getForObject(url, SolrQueryResponse.class);
