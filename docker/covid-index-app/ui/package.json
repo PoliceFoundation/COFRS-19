@@ -29,7 +29,7 @@
     "rollup-plugin-svelte": "^5.1.1",
     "rollup-plugin-terser": "^5.1.2",
     "sirv-cli": "^0.4.5",
-    "svelte": "^3.16.0",
+    "svelte": "^3.49.0",
     "tailwindcss": "^1.1.4"
   },
   "description": "COVID-19 Index App",
